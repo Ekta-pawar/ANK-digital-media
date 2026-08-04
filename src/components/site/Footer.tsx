@@ -2,6 +2,12 @@ import { Link } from "@tanstack/react-router";
 import { motion } from "motion/react";
 import { Facebook, Instagram, Linkedin, Mail, MapPin, Phone, Twitter } from "lucide-react";
 
+const BLOBS = [
+  { top: "-10%", left: "8%", size: 260, delay: 0 },
+  { top: "40%", right: "4%", size: 220, delay: 1.2 },
+  { bottom: "-15%", left: "38%", size: 240, delay: 2.4 },
+];
+
 const COLS = [
   {
     title: "Website Services",
@@ -38,8 +44,18 @@ const COLS = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-border bg-surface">
-      <div className="mx-auto max-w-7xl px-6 py-16">
+    <footer className="relative overflow-hidden border-t border-border bg-secondary/50">
+      {BLOBS.map((b, i) => (
+        <motion.div
+          key={i}
+          className="pointer-events-none absolute rounded-full bg-primary/10 blur-3xl"
+          style={{ top: b.top, left: b.left, right: b.right, bottom: b.bottom, width: b.size, height: b.size }}
+          animate={{ y: [0, -24, 0], opacity: [0.5, 0.9, 0.5] }}
+          transition={{ duration: 7, repeat: Infinity, delay: b.delay, ease: "easeInOut" }}
+        />
+      ))}
+
+      <div className="relative mx-auto max-w-7xl px-6 py-16">
         <motion.div
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -115,7 +131,7 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-border">
+      <div className="relative border-t border-border bg-secondary/70">
         <div className="mx-auto flex max-w-7xl flex-col gap-3 px-6 py-5 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
           <span>© Copyright 2015–2026. All Rights Reserved | Ank Digital Media</span>
           <div className="flex flex-wrap gap-4">

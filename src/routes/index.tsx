@@ -1,6 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Hero } from "@/components/site/Hero";
-import { Features, Marquee, Process, Projects, Stats } from "@/components/site/Sections";
+import {
+  Features,
+  Marquee,
+  Process,
+  Projects,
+  Showcase,
+  Stats,
+  VideoPromo,
+} from "@/components/site/Sections";
 
 const title = "Ank Digital Media — Web Development, Marketing & Bulk SMS";
 const description =
@@ -25,8 +33,10 @@ function Index() {
     <>
       <Hero />
       <Marquee />
+      <VideoPromo />
       <Process />
       <Stats />
+      <Showcase />
       <Features />
       <Projects />
     </>

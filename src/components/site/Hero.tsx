@@ -12,7 +12,9 @@ import {
   ShoppingCart,
 } from "lucide-react";
 
-import girl from "@/assets/ggggg-removebg-preview.png";
+import girl from "@/assets/finalgirl.png";
+import earth from "@/assets/earth.png";
+import graph from "@/assets/Screenshot_2026-08-04_155908-removebg-preview.png";
 import bgVideo from "@/assets/video Ank1.mp4";
 
 const SUBLINES = [
@@ -55,52 +57,50 @@ function Typewriter() {
   );
 }
 
-/* Grouped into 3 horizontal rows (left card + right card share the same vertical offset),
-   so each pair slides in together, in sequence, top row first then down. */
+/* Rounded pill cards (icon + title + note), positioned to mirror the
+   reference screenshot: top pair at shoulder height, middle pair beside
+   the graph/earth props in each hand, bottom pair down near the waist. */
 const PILLARS = [
-  // row 1 — resting right on the head, same height on both sides
   {
     icon: ShieldCheck,
     title: "Hosting & Security",
     note: "SSL, 99.9% uptime",
-    pos: "left-4 top-6 sm:left-8",
-    side: "left" as const,
-  },
-  {
-    icon: Megaphone,
-    title: "Digital Marketing",
-    note: "SEO, ads & social",
-    pos: "right-4 top-6 sm:right-8",
-    side: "right" as const,
-  },
-  // row 2 — middle
-  {
-    icon: Code2,
-    title: "Web Development",
-    note: "Fast, scalable builds",
-    pos: "left-2 top-1/2 sm:left-4",
+    pos: "left-0 top-0 sm:left-2",
     side: "left" as const,
   },
   {
     icon: Search,
     title: "SEO Growth",
     note: "Rank higher, faster",
-    pos: "right-2 top-1/2 sm:right-4",
+    pos: "right-0 top-0 sm:right-2",
     side: "right" as const,
   },
-  // row 3 — bottom
+  {
+    icon: Megaphone,
+    title: "Digital Marketing",
+    note: "SEO, ads & social",
+    pos: "left-0 top-[58%] sm:left-1",
+    side: "left" as const,
+  },
+  {
+    icon: Code2,
+    title: "Web Development",
+    note: "Fast, scalable builds",
+    pos: "right-0 top-[58%] sm:right-1",
+    side: "right" as const,
+  },
   {
     icon: MessageSquare,
-    title: "SMS / WhatsApp",
+    title: "SMS Service",
     note: "Reach at scale",
-    pos: "bottom-16 left-2 sm:left-6",
+    pos: "bottom-10 left-2 sm:left-4",
     side: "left" as const,
   },
   {
     icon: ShoppingCart,
-    title: "E-Commerce",
+    title: "E-commerce",
     note: "Stores that convert",
-    pos: "bottom-16 right-2 sm:right-6",
+    pos: "bottom-10 right-2 sm:right-4",
     side: "right" as const,
   },
 ];
@@ -145,7 +145,7 @@ export function Hero() {
         className="pointer-events-none absolute inset-0 z-0"
       >
         <video
-          src={bgVideo}
+          // src={bgVideo}
           autoPlay
           loop
           muted
@@ -260,10 +260,29 @@ export function Hero() {
               <img
                 src={girl}
                 alt="Ank Digital Media consultant presenting web, marketing and messaging services"
-                width={912}
-                height={1200}
+                width={505}
+                height={629}
                 className="relative z-10 w-70 drop-shadow-[0_28px_45px_rgba(41,182,246,0.28)] md:w-90"
               />
+
+              {/* graph + globe sitting right in each open palm */}
+              <motion.img
+                src={graph}
+                alt="Digital growth graph"
+                className="absolute left-[-2%] top-[12%] z-20 w-24 drop-shadow-[0_12px_20px_rgba(41,182,246,0.35)] sm:w-28 md:w-32"
+                initial={{ opacity: 0, scale: 0.5, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{ type: "spring", stiffness: 260, damping: 15, delay: 0.9 }}
+              />
+              <motion.img
+                src={earth}
+                alt="Global reach and SEO growth"
+                className="absolute right-[-2%] top-[15%] z-20 w-24 drop-shadow-[0_12px_20px_rgba(41,182,246,0.35)] sm:w-28 md:w-32"
+                initial={{ opacity: 0, scale: 0.5, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{ type: "spring", stiffness: 260, damping: 15, delay: 1.1 }}
+              />
+
               {PARTICLES.map((pt, i) => (
                 <motion.span
                   key={i}
@@ -296,14 +315,14 @@ export function Hero() {
                   animate={{ opacity: 1, scale: 1, x: 0 }}
                   transition={{ type: "spring", stiffness: 320, damping: 13, delay: rowDelay }}
                   style={{ transformStyle: "preserve-3d" }}
-                  className={`animate-float absolute z-20 hidden items-center gap-2 rounded-xl border border-primary/15 bg-card p-2 shadow-lift sm:flex ${p.pos}`}
+                  className={`animate-float absolute z-20 hidden items-center gap-2.5 rounded-full bg-white py-2 pl-2 pr-4 shadow-lift sm:flex ${p.pos}`}
                 >
-                  <div className="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-[linear-gradient(120deg,#29b6f6,#0277bd)] text-primary-foreground">
-                    <p.icon className="h-3.5 w-3.5" />
+                  <div className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-[linear-gradient(120deg,#29b6f6,#0277bd)] text-white">
+                    <p.icon className="h-4 w-4" />
                   </div>
                   <div className="min-w-0">
-                    <div className="truncate text-[11px] font-semibold">{p.title}</div>
-                    <div className="truncate text-[10px] text-muted-foreground">{p.note}</div>
+                    <div className="truncate text-[13px] font-bold text-slate-900">{p.title}</div>
+                    <div className="truncate text-[11px] text-slate-500">{p.note}</div>
                   </div>
                 </motion.div>
               );

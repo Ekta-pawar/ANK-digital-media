@@ -5,6 +5,7 @@ import { Autoplay, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import {
+  ArrowRight,
   ArrowUpRight,
   Award,
   Building2,
@@ -31,6 +32,9 @@ import {
   Wand2,
 } from "lucide-react";
 
+import promoVideo from "@/assets/video Ank1.mp4";
+import showcaseImg from "@/assets/Screenshot 2026-02-23 214451.png";
+
 /* ---------- shared ---------- */
 
 export function Reveal({
@@ -39,19 +43,23 @@ export function Reveal({
   className = "",
   from = "up",
   duration = 0.7,
+  once = true,
 }: {
   children: React.ReactNode;
   delay?: number;
   className?: string;
-  from?: "up" | "left";
+  from?: "up" | "left" | "right";
   duration?: number;
+  once?: boolean;
 }) {
   const initial =
     from === "left"
       ? { opacity: 0, x: -80, filter: "blur(8px)" }
-      : { opacity: 0, y: 26, filter: "blur(8px)" };
+      : from === "right"
+        ? { opacity: 0, x: 80, filter: "blur(8px)" }
+        : { opacity: 0, y: 26, filter: "blur(8px)" };
   const animate =
-    from === "left"
+    from === "left" || from === "right"
       ? { opacity: 1, x: 0, filter: "blur(0px)" }
       : { opacity: 1, y: 0, filter: "blur(0px)" };
 
@@ -59,7 +67,7 @@ export function Reveal({
     <motion.div
       initial={initial}
       whileInView={animate}
-      viewport={{ once: true, amount: 0.25 }}
+      viewport={{ once, amount: 0.25 }}
       transition={{ duration, delay, ease: [0.16, 1, 0.3, 1] }}
       className={className}
     >
@@ -118,6 +126,119 @@ export function Marquee() {
         ))}
       </div>
     </div>
+  );
+}
+
+/* ---------- video promo ---------- */
+
+export function VideoPromo() {
+  const stats = [
+    { n: 85, s: "%", l: "Increase in organic new users" },
+    { n: 200, s: "+", l: "Number of projects done" },
+    { n: 500, s: "+", l: "Reviews from happy clients" },
+  ];
+
+  return (
+    <section className="relative overflow-hidden bg-background py-20 md:py-28">
+      <div className="mx-auto grid max-w-7xl items-center gap-14 px-6 lg:grid-cols-[0.95fr_1.05fr]">
+        <Reveal from="left" duration={0.8}>
+          <div className="relative mx-auto max-w-md">
+            <motion.div
+              aria-hidden="true"
+              animate={{ rotate: 360 }}
+              transition={{ duration: 26, repeat: Infinity, ease: "linear" }}
+              className="absolute -inset-8 hidden rounded-full border-2 border-dashed border-primary/30 sm:block"
+            />
+            <div className="relative rounded-[2rem] border border-border bg-card p-3 shadow-lift">
+              <div className="relative overflow-hidden rounded-[1.5rem]">
+                <video
+                  src={promoVideo}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  aria-hidden="true"
+                  className="aspect-[4/3] w-full object-cover"
+                />
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,119,189,0.05)_0%,rgba(2,119,189,0.22)_100%)]" />
+              </div>
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 30, scale: 0.85 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              className="animate-float absolute -bottom-6 -left-6 flex items-center gap-3 rounded-2xl border border-border bg-card px-5 py-4 shadow-lift"
+            >
+              <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-[linear-gradient(120deg,#29b6f6,#0277bd)] text-white">
+                <ShieldCheck className="h-5 w-5" />
+              </div>
+              <div>
+                <div className="font-display text-sm font-bold">9+ Years</div>
+                <div className="text-xs text-muted-foreground">Trusted experience</div>
+              </div>
+            </motion.div>
+          </div>
+        </Reveal>
+
+        <div>
+          <Reveal>
+            <span className="inline-flex items-center gap-2 rounded-full border border-primary/25 bg-card px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-primary">
+              <Sparkles className="h-3 w-3" /> About Ank Digital Media
+            </span>
+          </Reveal>
+          <Reveal delay={0.12} from="left" duration={1.1}>
+            <h2 className="mt-4 font-display text-[clamp(1.8rem,3.8vw,2.6rem)] font-bold leading-tight">
+              We are a passionate digital agency who always{" "}
+              <span className="relative inline-block text-gradient">
+                focused
+                <svg
+                  aria-hidden="true"
+                  viewBox="0 0 120 14"
+                  className="pointer-events-none absolute -bottom-2 left-0 w-full text-primary"
+                >
+                  <motion.path
+                    d="M2 10 C 30 2, 60 2, 118 10"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                    initial={{ pathLength: 0, opacity: 0 }}
+                    whileInView={{ pathLength: 1, opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.9, delay: 0.6, ease: "easeInOut" }}
+                  />
+                </svg>
+              </span>{" "}
+              on growth that lasts.
+            </h2>
+          </Reveal>
+          <Reveal delay={0.24} duration={0.8}>
+            <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-muted-foreground">
+              Ank Digital Media is a digital innovation and marketing excellence agency. We offer a
+              wide range of digital marketing services and IT services designed to meet the diverse
+              needs of our clients — from the first line of code to the first page ranking.
+            </p>
+          </Reveal>
+
+          <div className="mt-10 grid grid-cols-3 gap-6 border-t border-border pt-8">
+            {stats.map((d, i) => (
+              <Reveal key={d.l} delay={i * 0.1}>
+                <div>
+                  <div className="font-display text-3xl font-black text-gradient sm:text-4xl">
+                    <Counter to={d.n} suffix={d.s} />
+                  </div>
+                  <div className="mt-1 text-xs leading-snug text-muted-foreground sm:text-sm">
+                    {d.l}
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -584,6 +705,119 @@ export function Stats() {
             </div>
           </Reveal>
         ))}
+      </div>
+    </section>
+  );
+}
+
+/* ---------- showcase (image left, copy right, hover effect) ---------- */
+
+export function Showcase() {
+  return (
+    <section className="relative overflow-hidden bg-[linear-gradient(120deg,rgba(41,182,246,0.08),rgba(2,119,189,0.05))] py-20 md:py-28">
+      <div className="pointer-events-none absolute -left-24 top-0 h-72 w-72 rounded-full bg-primary/10 blur-3xl" />
+      <div className="pointer-events-none absolute -right-16 bottom-0 h-64 w-64 rounded-full bg-primary/10 blur-3xl" />
+
+      <div className="relative mx-auto grid max-w-7xl items-center gap-14 px-6 lg:grid-cols-[1fr_1.05fr]">
+        <div className="relative mx-auto flex max-w-md items-start pb-10 pl-2 pt-2">
+          <motion.span
+            aria-hidden="true"
+            animate={{ rotate: [0, 90, 0] }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute left-[38%] top-0 z-20 text-2xl font-black text-primary/50"
+          >
+            +
+          </motion.span>
+          <motion.span
+            aria-hidden="true"
+            animate={{ y: [0, -8, 0] }}
+            transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute bottom-4 right-2 z-20 text-3xl text-primary/50"
+          >
+            ↗
+          </motion.span>
+
+          {/* photo pill — slides in from the left, then floats continuously */}
+          <motion.div
+            initial={{ opacity: 0, x: -90 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.4 }}
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+            className="relative z-10 w-[52%] shrink-0"
+          >
+            <motion.div
+              animate={{ y: [0, -16, 0] }}
+              transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
+              className="group relative overflow-hidden rounded-[999px] border border-primary/15 bg-card shadow-lift"
+            >
+              <img
+                src={showcaseImg}
+                alt="Ank Digital Media team member at work"
+                className="aspect-[3/5] w-full origin-bottom scale-100 object-cover grayscale-[10%] transition-all duration-500 ease-out group-hover:scale-110 group-hover:grayscale-0"
+              />
+              <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(41,182,246,0)_60%,rgba(2,119,189,0.18)_100%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+            </motion.div>
+          </motion.div>
+
+          {/* video pill — slides in from the right, floats in the opposite phase */}
+          <motion.div
+            initial={{ opacity: 0, x: 90 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.4 }}
+            transition={{ duration: 1, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+            className="relative z-20 -ml-8 mt-20 w-[52%] shrink-0"
+          >
+            <motion.div
+              animate={{ y: [0, 16, 0] }}
+              transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 0.3 }}
+              className="group relative overflow-hidden rounded-[999px] border border-primary/15 bg-card shadow-lift"
+            >
+              <video
+                src={promoVideo}
+                autoPlay
+                loop
+                muted
+                playsInline
+                aria-hidden="true"
+                className="aspect-[3/5] w-full origin-bottom scale-100 object-cover transition-transform duration-500 ease-out group-hover:scale-110"
+              />
+              <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(41,182,246,0)_60%,rgba(2,119,189,0.22)_100%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+            </motion.div>
+          </motion.div>
+        </div>
+
+        <div>
+          <Reveal delay={0.1} from="left" duration={1.1}>
+            <h2 className="font-display text-[clamp(1.8rem,3.6vw,2.6rem)] font-bold leading-tight">
+              Discover the powerhouse of digital growth where{" "}
+              <span className="text-gradient">creativity meets strategy</span>
+            </h2>
+          </Reveal>
+          <Reveal delay={0.1} duration={0.7} from="right" once={false}>
+            <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-muted-foreground">
+              At Ank Digital Media, we provide top-notch digital services under one roof, aimed at
+              delivering the highest quality of work across web, marketing and communication.
+            </p>
+          </Reveal>
+          <Reveal delay={0.2} duration={0.7} from="right" once={false}>
+            <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-muted-foreground">
+              We're built on the belief that a great digital presence is a right for every brand,
+              whether an established name or a growing startup — delivered through creativity,
+              strategy and cutting-edge technology.
+            </p>
+          </Reveal>
+          <Reveal delay={0.3} duration={0.6} from="right" once={false}>
+            <a
+              href="/about"
+              className="group/btn mt-8 inline-flex items-center gap-4 rounded-full bg-[linear-gradient(120deg,#29b6f6,#0277bd)] py-2 pl-6 pr-2 text-sm font-semibold text-primary-foreground shadow-soft transition-transform duration-300 hover:-translate-y-1"
+            >
+              Know About Us
+              <span className="grid h-9 w-9 place-items-center rounded-full bg-white/20 transition-transform duration-300 group-hover/btn:translate-x-1 group-hover/btn:bg-white/30">
+                <ArrowRight className="h-4 w-4" />
+              </span>
+            </a>
+          </Reveal>
+        </div>
       </div>
     </section>
   );
