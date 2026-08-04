@@ -91,7 +91,9 @@ export function Header({
         </span>
       </Reveal>
       <Reveal delay={0.12} from="left" duration={1.2}>
-        <h2 className="mt-4 font-display text-[clamp(1.7rem,3.6vw,2.5rem)] font-bold leading-tight">{title}</h2>
+        <h2 className="mt-4 font-display text-[clamp(1.7rem,3.6vw,2.5rem)] font-bold leading-tight">
+          {title}
+        </h2>
       </Reveal>
       {sub && (
         <Reveal delay={0.24} from={subFrom} duration={subDuration}>
@@ -129,7 +131,8 @@ export function About() {
           badge="About Ank Digital Media"
           title={
             <>
-              Technology is <span className="text-gradient">incredibly</span> performance and fully based on service.
+              Technology is <span className="text-gradient">incredibly</span> performance and fully
+              based on service.
             </>
           }
           sub="Ank Digital Media is a trusted global IT services company offering enterprise mobile app development, enterprise content management and customer relationship management solutions. Our relationship with clients, employees and communities is imbibed within us as the company's vision and mission — values that guide our business strategy and future growth. We deliver trust, ethics and confidentiality to our clients."
@@ -139,9 +142,21 @@ export function About() {
 
         <div className="mt-14 grid gap-5 md:grid-cols-3">
           {[
-            { icon: Target, t: "Our Mission", d: "Give every business an honest, high-performing digital presence that actually converts." },
-            { icon: Lightbulb, t: "Our Vision", d: "To be the single IT partner brands trust for web, marketing and communication." },
-            { icon: ShieldCheck, t: "Our Values", d: "Trust, ethics, confidentiality and measurable results on every engagement." },
+            {
+              icon: Target,
+              t: "Our Mission",
+              d: "Give every business an honest, high-performing digital presence that actually converts.",
+            },
+            {
+              icon: Lightbulb,
+              t: "Our Vision",
+              d: "To be the single IT partner brands trust for web, marketing and communication.",
+            },
+            {
+              icon: ShieldCheck,
+              t: "Our Values",
+              d: "Trust, ethics, confidentiality and measurable results on every engagement.",
+            },
           ].map((c, i) => (
             <Reveal key={c.t} delay={i * 0.12}>
               <div className="card-soft group h-full rounded-2xl p-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-lift">
@@ -164,22 +179,50 @@ const PLANS = [
   {
     icon: Building2,
     title: "Developments",
-    items: ["Website Designing", "Web Application", "Software Development", "Mobile Application", "Graphics Design", "E-Commerce"],
+    items: [
+      "Website Designing",
+      "Web Application",
+      "Software Development",
+      "Mobile Application",
+      "Graphics Design",
+      "E-Commerce",
+    ],
   },
   {
     icon: Server,
     title: "Services",
-    items: ["Web Design & Development", "Mobile Application", "Desktop Application", "Text and Voice SMS", "Domain Registration", "Hosting"],
+    items: [
+      "Web Design & Development",
+      "Mobile Application",
+      "Desktop Application",
+      "Text and Voice SMS",
+      "Domain Registration",
+      "Hosting",
+    ],
   },
   {
     icon: Megaphone,
     title: "Marketing",
-    items: ["Search Engine Optimisation", "Social Media Optimisation", "Voice and Text SMS", "Mobile Application", "Offline Marketing", "Web Pages"],
+    items: [
+      "Search Engine Optimisation",
+      "Social Media Optimisation",
+      "Voice and Text SMS",
+      "Mobile Application",
+      "Offline Marketing",
+      "Web Pages",
+    ],
   },
   {
     icon: MessageSquare,
     title: "SMS",
-    items: ["Transactional SMS", "Promotional SMS", "Missed Call", "Voice Call", "WhatsApp Messages", "IVR Calls"],
+    items: [
+      "Transactional SMS",
+      "Promotional SMS",
+      "Missed Call",
+      "Voice Call",
+      "WhatsApp Messages",
+      "IVR Calls",
+    ],
   },
 ];
 
@@ -194,7 +237,9 @@ export function Plans() {
               <div className="card-soft group flex h-full flex-col overflow-hidden rounded-2xl transition-all duration-300 hover:-translate-y-2 hover:shadow-lift">
                 <div className="flex items-center gap-2 bg-[linear-gradient(120deg,#29b6f6,#0277bd)] px-5 py-4 text-primary-foreground">
                   <p.icon className="h-4 w-4 shrink-0" />
-                  <span className="text-sm font-semibold uppercase tracking-[0.14em]">{p.title}</span>
+                  <span className="text-sm font-semibold uppercase tracking-[0.14em]">
+                    {p.title}
+                  </span>
                 </div>
                 <ul className="flex-1 space-y-3 px-5 py-6">
                   {p.items.map((it, ii) => (
@@ -242,7 +287,11 @@ export function Process() {
   return (
     <section id="process" className="bg-surface py-20 md:py-28">
       <div className="mx-auto max-w-7xl px-6">
-        <Header badge="Our Process" title="Strategy, planning, build — then our work speaks" sub="A transparent six-step process that keeps you in the loop from first call to final launch." />
+        <Header
+          badge="Our Process"
+          title="Strategy, planning, build — then our work speaks"
+          sub="A transparent six-step process that keeps you in the loop from first call to final launch."
+        />
         <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {STEPS.map((s, i) => (
             <Reveal key={s.t} delay={i * 0.08}>
@@ -289,8 +338,6 @@ export function Process() {
   );
 }
 
-
-
 /* ---------- tabbed services ---------- */
 
 const TABS = [
@@ -301,7 +348,14 @@ const TABS = [
     blurb:
       "Web development covers everything involved in building websites for intranet or Internet hosting — web design, content development, client-side and server-side scripting and network security configuration.",
     steps: ["Plan", "Design", "Build", "Beta", "Launch", "Support"],
-    items: ["Web Designing", "Web Development", "E-Commerce Website", "Software Development", "UI/UX Design", "Web Applications"],
+    items: [
+      "Web Designing",
+      "Web Development",
+      "E-Commerce Website",
+      "Software Development",
+      "UI/UX Design",
+      "Web Applications",
+    ],
   },
   {
     key: "marketing",
@@ -310,7 +364,14 @@ const TABS = [
     blurb:
       "Data-driven campaigns that put your brand in front of the right people — search, social, influencers and local presence, all measured against real business outcomes.",
     steps: ["Audit", "Keywords", "Content", "Campaign", "Scale", "Report"],
-    items: ["Search Engine Optimisation", "Social Media Marketing", "Influencer Marketing", "Google My Business", "Brand Building", "Paid Ads"],
+    items: [
+      "Search Engine Optimisation",
+      "Social Media Marketing",
+      "Influencer Marketing",
+      "Google My Business",
+      "Brand Building",
+      "Paid Ads",
+    ],
   },
   {
     key: "sms",
@@ -319,7 +380,14 @@ const TABS = [
     blurb:
       "Reach thousands of customers in seconds with high-delivery bulk SMS, WhatsApp business messaging, voice calls and IVR — with live reporting on every campaign.",
     steps: ["Setup", "Sender ID", "Template", "Approve", "Send", "Track"],
-    items: ["Bulk SMS Services", "WhatsApp Marketing", "Voice Call Services", "IVR Services", "Missed Call Services", "OTP & Transactional"],
+    items: [
+      "Bulk SMS Services",
+      "WhatsApp Marketing",
+      "Voice Call Services",
+      "IVR Services",
+      "Missed Call Services",
+      "OTP & Transactional",
+    ],
   },
   {
     key: "hosting",
@@ -328,7 +396,14 @@ const TABS = [
     blurb:
       "Fast, secure and monitored hosting with free SSL, daily backups and domain registration — so your site stays online while you focus on your business.",
     steps: ["Domain", "Setup", "SSL", "Migrate", "Monitor", "Backup"],
-    items: ["Domain Registration", "Shared & Cloud Hosting", "Free SSL Certificates", "Business Email", "Daily Backups", "24×7 Monitoring"],
+    items: [
+      "Domain Registration",
+      "Shared & Cloud Hosting",
+      "Free SSL Certificates",
+      "Business Email",
+      "Daily Backups",
+      "24×7 Monitoring",
+    ],
   },
 ];
 
@@ -417,12 +492,28 @@ const TABS = [
 /* ---------- why choose us / advance features ---------- */
 
 const FEATURES = [
-  { icon: Wand2, t: "Unique Animations", d: "Motion-led interfaces that feel alive, not templated." },
-  { icon: Layers, t: "Widget Integration", d: "Chat, payments, CRM and analytics wired in from day one." },
+  {
+    icon: Wand2,
+    t: "Unique Animations",
+    d: "Motion-led interfaces that feel alive, not templated.",
+  },
+  {
+    icon: Layers,
+    t: "Widget Integration",
+    d: "Chat, payments, CRM and analytics wired in from day one.",
+  },
   { icon: Users, t: "Personalization", d: "Content and offers tailored to each visitor segment." },
-  { icon: ShieldCheck, t: "Security First", d: "SSL, hardened hosting and regular vulnerability checks." },
+  {
+    icon: ShieldCheck,
+    t: "Security First",
+    d: "SSL, hardened hosting and regular vulnerability checks.",
+  },
   { icon: Globe, t: "Global Delivery", d: "Serving clients across India and overseas since 2015." },
-  { icon: Headphones, t: "24×7 Support", d: "Real humans on call whenever something needs attention." },
+  {
+    icon: Headphones,
+    t: "24×7 Support",
+    d: "Real humans on call whenever something needs attention.",
+  },
 ];
 
 export function Features() {
@@ -522,7 +613,7 @@ export function Projects() {
             autoplay={{ delay: 3200, disableOnInteraction: false }}
             pagination={{ clickable: true }}
             breakpoints={{ 640: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } }}
-            className="!pb-12"
+            className="pb-12!"
           >
             {PROJECTS.map((p) => (
               <SwiperSlide key={p.t}>

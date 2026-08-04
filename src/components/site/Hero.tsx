@@ -121,7 +121,10 @@ const PARTICLES = [
 
 export function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end start"] });
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
   const bgParallax = useTransform(scrollYProgress, [0, 1], [0, 60]);
   const textParallax = useTransform(scrollYProgress, [0, 1], [0, -25]);
 
@@ -176,13 +179,20 @@ export function Hero() {
             style={{ perspective: 700 }}
           >
             {HEADLINE_CHARS.map(({ word, wi, chars }) => (
-              <span key={word + wi} className={`mr-2 inline-block ${wi === 2 ? "text-gradient-shimmer" : ""}`}>
+              <span
+                key={word + wi}
+                className={`mr-2 inline-block ${wi === 2 ? "text-gradient-shimmer" : ""}`}
+              >
                 {chars.map(({ ch, idx }) => (
                   <span key={idx} className="inline-block overflow-hidden pb-1 align-bottom">
                     <motion.span
                       initial={{ opacity: 0, y: "100%", rotateX: -70 }}
                       animate={{ opacity: 1, y: "0%", rotateX: 0 }}
-                      transition={{ duration: 0.55, delay: 1.0 + idx * 0.025, ease: [0.16, 1, 0.3, 1] }}
+                      transition={{
+                        duration: 0.55,
+                        delay: 1.0 + idx * 0.025,
+                        ease: [0.16, 1, 0.3, 1],
+                      }}
                       style={{ transformOrigin: "50% 100%" }}
                       className="inline-block"
                     >
@@ -252,15 +262,26 @@ export function Hero() {
                 alt="Ank Digital Media consultant presenting web, marketing and messaging services"
                 width={912}
                 height={1200}
-                className="relative z-10 w-[280px] drop-shadow-[0_28px_45px_rgba(41,182,246,0.28)] md:w-[360px]"
+                className="relative z-10 w-70 drop-shadow-[0_28px_45px_rgba(41,182,246,0.28)] md:w-90"
               />
               {PARTICLES.map((pt, i) => (
                 <motion.span
                   key={i}
                   className="absolute rounded-full bg-primary/40 blur-[1px]"
-                  style={{ top: pt.top, left: pt.left, right: pt.right, width: pt.size, height: pt.size }}
+                  style={{
+                    top: pt.top,
+                    left: pt.left,
+                    right: pt.right,
+                    width: pt.size,
+                    height: pt.size,
+                  }}
                   animate={{ y: [0, -20, 0], opacity: [0.25, 0.85, 0.25] }}
-                  transition={{ duration: 3.6, repeat: Infinity, delay: pt.delay, ease: "easeInOut" }}
+                  transition={{
+                    duration: 3.6,
+                    repeat: Infinity,
+                    delay: pt.delay,
+                    ease: "easeInOut",
+                  }}
                 />
               ))}
             </div>
