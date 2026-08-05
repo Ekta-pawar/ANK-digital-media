@@ -129,8 +129,8 @@ export function Marquee() {
 export function VideoPromo() {
   const stats = [
     { n: 85, s: "%", l: "Increase in organic new users" },
-    { n: 200, s: "+", l: "Number of projects done" },
-    { n: 500, s: "+", l: "Reviews from happy clients" },
+    { n: 450, s: "+", l: "Number of projects done" },
+    { n: 420, s: "+", l: "Reviews from happy clients" },
   ];
 
   return (
@@ -473,7 +473,7 @@ const FEATURES = [
     t: "Security First",
     d: "SSL, hardened hosting and regular vulnerability checks.",
   },
-  { icon: Globe, t: "Global Delivery", d: "Serving clients across India and overseas since 2015." },
+  { icon: Globe, t: "Global Delivery", d: "Serving clients across India and overseas since 2013." },
   {
     icon: Headphones,
     t: "24×7 Support",
@@ -532,9 +532,9 @@ export function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
 export function Stats() {
   const data = [
     { n: 450, s: "+", l: "Projects delivered" },
-    { n: 320, s: "+", l: "Happy clients" },
+    { n: 420, s: "+", l: "Happy clients" },
     { n: 10, s: "M+", l: "SMS sent monthly" },
-    { n: 9, s: " yrs", l: "In business" },
+    { n: 15, s: " yrs", l: "In business" },
   ];
   return (
     <section className="bg-[linear-gradient(120deg,#29b6f6,#0277bd)] py-14">

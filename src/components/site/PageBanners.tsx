@@ -62,8 +62,8 @@ export function Breadcrumb({
 /* ---------- about banner (video) ---------- */
 
 const ABOUT_STATS = [
-  { n: 9, s: " yrs", l: "In business" },
-  { n: 320, s: "+", l: "Happy clients" },
+  { n: 15, s: " yrs", l: "In business" },
+  { n: 420, s: "+", l: "Happy clients" },
   { n: 450, s: "+", l: "Projects delivered" },
 ];
 
@@ -105,7 +105,7 @@ export function AboutBanner() {
           transition={{ duration: 0.5, delay: 0.15 }}
           className="mt-5 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-white backdrop-blur-sm"
         >
-          <Sparkles className="h-3 w-3" /> Since 2015
+          <Sparkles className="h-3 w-3" /> Since 2013
         </motion.span>
         <motion.h1
           initial={{ opacity: 0, y: 24 }}
@@ -149,12 +149,12 @@ export function AboutBanner() {
 
 const JOURNEY = [
   {
-    y: "2015",
+    y: "2013",
     t: "Founded in New Delhi",
     d: "Started as a small web design studio serving local businesses.",
   },
   {
-    y: "2018",
+    y: "2015",
     t: "Digital marketing added",
     d: "Expanded into SEO, social and paid campaigns as clients asked for full-funnel growth.",
   },
@@ -312,7 +312,7 @@ export function ContactExtras() {
 const CAREER_STATS = [
   { n: 25, s: "+", l: "Team members" },
   { n: 4, s: "", l: "Open roles" },
-  { n: 9, s: " yrs", l: "Growing team" },
+  { n: 15, s: " yrs", l: "Growing team" },
 ];
 
 export function CareerBanner() {
