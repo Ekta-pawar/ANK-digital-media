@@ -5,9 +5,5 @@ export const Route = createFileRoute("/services")({
 });
 
 function ServicesLayout() {
-  return (
-    <div className="pt-28">
-      <Outlet />
-    </div>
-  );
+  return <Outlet />;
 }

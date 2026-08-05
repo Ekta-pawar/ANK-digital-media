@@ -10,17 +10,12 @@ import {
   Award,
   Building2,
   Check,
-  CreditCard,
   Globe,
   Headphones,
   Layers,
   Lightbulb,
-  Mail,
-  MapPin,
   Megaphone,
   MessageSquare,
-  MonitorSmartphone,
-  Phone,
   Rocket,
   Search,
   Server,
@@ -32,7 +27,7 @@ import {
   Wand2,
 } from "lucide-react";
 
-import promoVideo from "@/assets/video Ank1.mp4";
+import promoVideo from "@/assets/build_a_video_it_have_same_peo.mp4";
 import showcaseImg from "@/assets/Screenshot 2026-02-23 214451.png";
 
 /* ---------- shared ---------- */
@@ -459,157 +454,6 @@ export function Process() {
   );
 }
 
-/* ---------- tabbed services ---------- */
-
-const TABS = [
-  {
-    key: "web",
-    label: "Web Development",
-    icon: MonitorSmartphone,
-    blurb:
-      "Web development covers everything involved in building websites for intranet or Internet hosting — web design, content development, client-side and server-side scripting and network security configuration.",
-    steps: ["Plan", "Design", "Build", "Beta", "Launch", "Support"],
-    items: [
-      "Web Designing",
-      "Web Development",
-      "E-Commerce Website",
-      "Software Development",
-      "UI/UX Design",
-      "Web Applications",
-    ],
-  },
-  {
-    key: "marketing",
-    label: "Digital Marketing",
-    icon: Megaphone,
-    blurb:
-      "Data-driven campaigns that put your brand in front of the right people — search, social, influencers and local presence, all measured against real business outcomes.",
-    steps: ["Audit", "Keywords", "Content", "Campaign", "Scale", "Report"],
-    items: [
-      "Search Engine Optimisation",
-      "Social Media Marketing",
-      "Influencer Marketing",
-      "Google My Business",
-      "Brand Building",
-      "Paid Ads",
-    ],
-  },
-  {
-    key: "sms",
-    label: "SMS & WhatsApp",
-    icon: MessageSquare,
-    blurb:
-      "Reach thousands of customers in seconds with high-delivery bulk SMS, WhatsApp business messaging, voice calls and IVR — with live reporting on every campaign.",
-    steps: ["Setup", "Sender ID", "Template", "Approve", "Send", "Track"],
-    items: [
-      "Bulk SMS Services",
-      "WhatsApp Marketing",
-      "Voice Call Services",
-      "IVR Services",
-      "Missed Call Services",
-      "OTP & Transactional",
-    ],
-  },
-  {
-    key: "hosting",
-    label: "Web Hosting",
-    icon: Server,
-    blurb:
-      "Fast, secure and monitored hosting with free SSL, daily backups and domain registration — so your site stays online while you focus on your business.",
-    steps: ["Domain", "Setup", "SSL", "Migrate", "Monitor", "Backup"],
-    items: [
-      "Domain Registration",
-      "Shared & Cloud Hosting",
-      "Free SSL Certificates",
-      "Business Email",
-      "Daily Backups",
-      "24×7 Monitoring",
-    ],
-  },
-];
-
-// export function Services() {
-//   const [active, setActive] = useState(TABS[0].key);
-//   const tab = TABS.find((t) => t.key === active)!;
-
-//   return (
-//     <section id="services" className="bg-surface py-20 md:py-28">
-//       <div className="mx-auto max-w-7xl px-6">
-//         <Header
-//           badge="Our Services"
-//           title="Ank Digital Media services"
-//           sub="Choose a category to explore what we build and manage for you."
-//         />
-
-//         <div className="mt-10 flex flex-wrap justify-center gap-2">
-//           {TABS.map((t) => (
-//             <button
-//               key={t.key}
-//               onClick={() => setActive(t.key)}
-//               className={`inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition-all duration-300 ${
-//                 active === t.key
-//                   ? "bg-[linear-gradient(120deg,#29b6f6,#0277bd)] text-primary-foreground shadow-soft"
-//                   : "border border-border bg-card text-foreground/70 hover:-translate-y-0.5 hover:text-primary"
-//               }`}
-//             >
-//               <t.icon className="h-4 w-4" /> {t.label}
-//             </button>
-//           ))}
-//         </div>
-
-//         <motion.div
-//           key={tab.key}
-//           initial={{ opacity: 0, y: 18 }}
-//           animate={{ opacity: 1, y: 0 }}
-//           transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-//           className="mt-10 grid gap-6 lg:grid-cols-[0.9fr_1.1fr]"
-//         >
-//           <div className="card-soft rounded-2xl p-7">
-//             <h3 className="font-display text-xl font-bold">{tab.label}</h3>
-//             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{tab.blurb}</p>
-//             <div className="mt-6 flex flex-wrap gap-2">
-//               {tab.steps.map((s, i) => (
-//                 <motion.span
-//                   key={s}
-//                   initial={{ opacity: 0, scale: 0.9 }}
-//                   animate={{ opacity: 1, scale: 1 }}
-//                   transition={{ delay: 0.06 * i }}
-//                   className="rounded-full border border-primary/25 bg-secondary px-3 py-1.5 text-xs font-semibold text-primary"
-//                 >
-//                   {i + 1}. {s}
-//                 </motion.span>
-//               ))}
-//             </div>
-//             <a
-//               href="#contact"
-//               className="mt-7 inline-flex items-center gap-2 rounded-full bg-[linear-gradient(120deg,#29b6f6,#0277bd)] px-5 py-3 text-sm font-semibold text-primary-foreground transition-transform hover:-translate-y-0.5"
-//             >
-//               Get Started Now! <ArrowUpRight className="h-4 w-4" />
-//             </a>
-//           </div>
-
-//           <div className="grid gap-4 sm:grid-cols-2">
-//             {tab.items.map((it, i) => (
-//               <motion.div
-//                 key={it}
-//                 initial={{ opacity: 0, y: 18 }}
-//                 animate={{ opacity: 1, y: 0 }}
-//                 transition={{ delay: 0.05 * i, duration: 0.45 }}
-//                 className="card-soft flex items-center gap-3 rounded-2xl p-4 transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02] hover:shadow-lift"
-//               >
-//                 <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-secondary text-primary">
-//                   <Check className="h-4 w-4" />
-//                 </div>
-//                 <span className="text-sm font-medium">{it}</span>
-//               </motion.div>
-//             ))}
-//           </div>
-//         </motion.div>
-//       </div>
-//     </section>
-//   );
-// }
-
 /* ---------- why choose us / advance features ---------- */
 
 const FEATURES = [
@@ -666,7 +510,7 @@ export function Features() {
 
 /* ---------- stats ---------- */
 
-function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
+export function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, amount: 0.5 });
   const spring = useSpring(0, { stiffness: 60, damping: 20 });
@@ -900,188 +744,41 @@ export function Projects() {
 
 /* ---------- career ---------- */
 
-// export function Career() {
-//   const roles = [
-//     { t: "Frontend Developer", x: "React · 1–3 yrs · New Delhi" },
-//     { t: "SEO Executive", x: "On-page & off-page · 0–2 yrs" },
-//     { t: "Business Development", x: "IT sales · 1–4 yrs" },
-//     { t: "Graphic Designer", x: "Figma · Adobe · 1–3 yrs" },
-//   ];
-//   return (
-//     <section id="career" className="bg-background py-20 md:py-28">
-//       <div className="mx-auto max-w-7xl px-6">
-//         <Header
-//           badge="Career"
-//           title="Build your career with us"
-//           sub="We're always looking for people who care about craft. Send your CV to ankdigitalmedia@gmail.com."
-//         />
-//         <div className="mt-12 grid gap-4 md:grid-cols-2">
-//           {roles.map((r, i) => (
-//             <Reveal key={r.t} delay={i * 0.08}>
-//               <a
-//                 href="#contact"
-//                 className="card-soft group flex items-center justify-between gap-4 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-lift"
-//               >
-//                 <div className="min-w-0">
-//                   <h3 className="font-display text-base font-semibold">{r.t}</h3>
-//                   <p className="mt-1 text-sm text-muted-foreground">{r.x}</p>
-//                 </div>
-//                 <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-secondary text-primary transition-transform group-hover:rotate-45">
-//                   <ArrowUpRight className="h-4 w-4" />
-//                 </span>
-//               </a>
-//             </Reveal>
-//           ))}
-//         </div>
-//       </div>
-//     </section>
-//   );
-// }
+export function Career() {
+  const roles = [
+    { t: "Frontend Developer", x: "React · 1–3 yrs · New Delhi" },
+    { t: "SEO Executive", x: "On-page & off-page · 0–2 yrs" },
+    { t: "Business Development", x: "IT sales · 1–4 yrs" },
+    { t: "Graphic Designer", x: "Figma · Adobe · 1–3 yrs" },
+  ];
+  return (
+    <section id="career" className="bg-background py-20 md:py-28">
+      <div className="mx-auto max-w-7xl px-6">
+        <Header
+          badge="Career"
+          title="Build your career with us"
+          sub="We're always looking for people who care about craft. Send your CV to ankdigitalmedia@gmail.com."
+        />
+        <div className="mt-12 grid gap-4 md:grid-cols-2">
+          {roles.map((r, i) => (
+            <Reveal key={r.t} delay={i * 0.08}>
+              <a
+                href="#contact"
+                className="card-soft group flex items-center justify-between gap-4 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-lift"
+              >
+                <div className="min-w-0">
+                  <h3 className="font-display text-base font-semibold">{r.t}</h3>
+                  <p className="mt-1 text-sm text-muted-foreground">{r.x}</p>
+                </div>
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-secondary text-primary transition-transform group-hover:rotate-45">
+                  <ArrowUpRight className="h-4 w-4" />
+                </span>
+              </a>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
 
-/* ---------- payment ---------- */
-
-// export function Payment() {
-//   return (
-//     <section id="payment" className="bg-surface py-20 md:py-28">
-//       <div className="mx-auto max-w-7xl px-6">
-//         <Reveal>
-//           <div className="card-soft grid items-center gap-8 rounded-3xl p-8 md:grid-cols-[1.1fr_0.9fr] md:p-12">
-//             <div>
-//               <span className="inline-flex items-center gap-2 rounded-full border border-primary/25 bg-card px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-primary">
-//                 <CreditCard className="h-3 w-3" /> Payment
-//               </span>
-//               <h2 className="mt-4 font-display text-[clamp(1.6rem,3.2vw,2.2rem)] font-bold leading-tight">
-//                 Pay securely for your <span className="text-gradient">project or plan</span>
-//               </h2>
-//               <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-//                 Pay by UPI, net banking, credit or debit card. Share your invoice number while
-//                 paying and our team will confirm within one working hour.
-//               </p>
-//               <div className="mt-7 flex flex-wrap gap-3">
-//                 <a
-//                   href="#contact"
-//                   className="pulse-ring inline-flex items-center gap-2 rounded-full bg-[linear-gradient(120deg,#29b6f6,#0277bd)] px-6 py-3 text-sm font-semibold text-primary-foreground transition-transform hover:-translate-y-1"
-//                 >
-//                   Request payment link
-//                 </a>
-//                 <a
-//                   href="tel:+919999779817"
-//                   className="inline-flex items-center gap-2 rounded-full border border-primary/35 bg-card px-6 py-3 text-sm font-semibold text-primary transition-transform hover:-translate-y-1"
-//                 >
-//                   <Phone className="h-4 w-4" /> Talk to accounts
-//                 </a>
-//               </div>
-//             </div>
-//             <div className="grid gap-3 sm:grid-cols-2">
-//               {["UPI / QR", "Net Banking", "Credit Card", "Debit Card"].map((m, i) => (
-//                 <motion.div
-//                   key={m}
-//                   initial={{ opacity: 0, y: 16 }}
-//                   whileInView={{ opacity: 1, y: 0 }}
-//                   viewport={{ once: true }}
-//                   transition={{ delay: i * 0.08, duration: 0.5 }}
-//                   className="rounded-2xl border border-border bg-card px-4 py-5 text-center text-sm font-semibold shadow-soft"
-//                 >
-//                   {m}
-//                 </motion.div>
-//               ))}
-//             </div>
-//           </div>
-//         </Reveal>
-//       </div>
-//     </section>
-//   );
-// }
-
-/* ---------- contact ---------- */
-
-// export function Contact() {
-//   const [sent, setSent] = useState(false);
-//   return (
-//     <section id="contact" className="bg-background py-20 md:py-28">
-//       <div className="mx-auto max-w-7xl px-6">
-//         <Header badge="Get in Touch" title="Let's grow your business online" />
-//         <div className="mt-12 grid gap-6 lg:grid-cols-[0.85fr_1.15fr]">
-//           <div className="space-y-4">
-//             {[
-//               { icon: Phone, t: "Mobile No", d: "+91 99997 79817", href: "tel:+919999779817" },
-//               {
-//                 icon: Mail,
-//                 t: "Email",
-//                 d: "ankdigitalmedia@gmail.com",
-//                 href: "mailto:ankdigitalmedia@gmail.com",
-//               },
-//               {
-//                 icon: MapPin,
-//                 t: "Address",
-//                 d: "AG/611, Ground Floor, Opp. Wazirpur Computer Market, Near Shalimar Bagh Metro Station Gate No-2, New Delhi-110088",
-//               },
-//             ].map((c, i) => (
-//               <Reveal key={c.t} delay={i * 0.1}>
-//                 <a
-//                   href={c.href ?? "#contact"}
-//                   className="card-soft flex items-start gap-4 rounded-2xl p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-lift"
-//                 >
-//                   <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-[linear-gradient(120deg,#29b6f6,#0277bd)] text-primary-foreground">
-//                     <c.icon className="h-5 w-5" />
-//                   </span>
-//                   <div className="min-w-0">
-//                     <div className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
-//                       {c.t}
-//                     </div>
-//                     <div className="mt-1 text-sm font-medium leading-relaxed">{c.d}</div>
-//                   </div>
-//                 </a>
-//               </Reveal>
-//             ))}
-//           </div>
-
-//           <Reveal delay={0.15}>
-//             <form
-//               onSubmit={(e) => {
-//                 e.preventDefault();
-//                 setSent(true);
-//               }}
-//               className="card-soft grid gap-4 rounded-2xl p-7 sm:grid-cols-2"
-//             >
-//               <input
-//                 required
-//                 placeholder="Your name"
-//                 className="rounded-xl border border-input bg-background px-4 py-3 text-sm outline-none transition-shadow focus:ring-2 focus:ring-primary/40"
-//               />
-//               <input
-//                 required
-//                 type="tel"
-//                 placeholder="Phone number"
-//                 className="rounded-xl border border-input bg-background px-4 py-3 text-sm outline-none transition-shadow focus:ring-2 focus:ring-primary/40"
-//               />
-//               <input
-//                 required
-//                 type="email"
-//                 placeholder="Email address"
-//                 className="rounded-xl border border-input bg-background px-4 py-3 text-sm outline-none transition-shadow focus:ring-2 focus:ring-primary/40 sm:col-span-2"
-//               />
-//               <select className="rounded-xl border border-input bg-background px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-primary/40 sm:col-span-2">
-//                 <option>Web Development</option>
-//                 <option>Digital Marketing</option>
-//                 <option>Bulk SMS / WhatsApp</option>
-//                 <option>Web Hosting</option>
-//               </select>
-//               <textarea
-//                 rows={4}
-//                 placeholder="Tell us about your project"
-//                 className="rounded-xl border border-input bg-background px-4 py-3 text-sm outline-none transition-shadow focus:ring-2 focus:ring-primary/40 sm:col-span-2"
-//               />
-//               <button
-//                 type="submit"
-//                 className="pulse-ring rounded-full bg-[linear-gradient(120deg,#29b6f6,#0277bd)] px-6 py-3 text-sm font-semibold text-primary-foreground transition-transform hover:-translate-y-0.5 sm:col-span-2"
-//               >
-//                 {sent ? "Thanks — we'll call you shortly!" : "Send enquiry"}
-//               </button>
-//             </form>
-//           </Reveal>
-//         </div>
-//       </div>
-//     </section>
-//   );
-// }

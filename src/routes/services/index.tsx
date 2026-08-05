@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Plans, Process } from "@/components/site/Sections";
+import { ServiceHighlights, ServicesBanner } from "@/components/site/PageBanners";
 
 const title = "Our Services — Ank Digital Media";
 const description =
@@ -20,8 +21,10 @@ export const Route = createFileRoute("/services/")({
 function ServicesIndexPage() {
   return (
     <>
+      <ServicesBanner />
       <Process />
       <Plans />
+      <ServiceHighlights />
     </>
   );
 }

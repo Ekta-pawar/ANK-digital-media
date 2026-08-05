@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { About } from "@/components/site/Sections";
+import { AboutBanner, Timeline } from "@/components/site/PageBanners";
 
 const title = "About Us — Ank Digital Media";
 const description =
@@ -19,8 +20,10 @@ export const Route = createFileRoute("/about")({
 
 function AboutPage() {
   return (
-    <div className="pt-28">
+    <>
+      <AboutBanner />
       <About />
-    </div>
+      <Timeline />
+    </>
   );
 }

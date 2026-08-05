@@ -46,7 +46,7 @@ const NAV: NavItem[] = [
       { label: "Brand Building", to: "/services/brand-building" },
     ],
   },
-  { label: "Projects", to: "/projects" },
+  { label: "Career", to: "/career" },
   { label: "Contact", to: "/contact" },
 ];
 
@@ -168,12 +168,6 @@ export function Navbar() {
         </nav>
 
         <div className="flex shrink-0 items-center gap-2">
-          {/* <a
-            href="tel:+919999779817"
-            className="hidden items-center gap-2 rounded-full border border-border px-4 py-2 text-sm font-medium text-foreground/80 transition-all hover:-translate-y-0.5 hover:border-primary hover:text-primary md:inline-flex"
-          >
-            <Phone className="h-4 w-4" /> +91 99997 79817
-          </a> */}
           <motion.button
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -205,14 +199,14 @@ export function Navbar() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setMobile(false)}
-              className="fixed inset-0 bg-foreground/20 backdrop-blur-sm xl:hidden"
+              className="fixed inset-0 bg-foreground/20 backdrop-blur-sm lg:hidden"
             />
             <motion.aside
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", stiffness: 320, damping: 34 }}
-              className="fixed right-0 top-0 h-dvh w-[85%] max-w-sm overflow-y-auto bg-card p-6 shadow-lift xl:hidden"
+              className="fixed right-0 top-0 h-dvh w-[85%] max-w-sm overflow-y-auto bg-card p-6 shadow-lift lg:hidden"
             >
               <div className="flex items-center justify-between">
                 <span className="font-display text-lg font-bold">Menu</span>

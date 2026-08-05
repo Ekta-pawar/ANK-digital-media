@@ -15,7 +15,7 @@ import {
 import girl from "@/assets/finalgirl.png";
 import earth from "@/assets/earth.png";
 import graph from "@/assets/Screenshot_2026-08-04_155908-removebg-preview.png";
-import bgVideo from "@/assets/video Ank1.mp4";
+import bgVideo from "@/assets/build_a_video_it_have_same_peo.mp4";
 
 const SUBLINES = [
   "Web Design & Development",
@@ -145,13 +145,13 @@ export function Hero() {
         className="pointer-events-none absolute inset-0 z-0"
       >
         <video
-          // src={bgVideo}
+          src={bgVideo}
           autoPlay
           loop
           muted
           playsInline
           aria-hidden="true"
-          className="h-full w-full object-cover opacity-160"
+          className="h-full w-full object-cover opacity-100"
         />
         <div className="absolute inset-0 bg-linear-to-r from-background/70 via-background/40 to-background/10" />
         <div className="absolute inset-0 bg-[linear-gradient(100deg,rgba(255,255,255,0.06)_42%,rgba(255,255,255,0)_100%)]" />
@@ -208,7 +208,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 1.4 }}
-            className="mt-5 max-w-xl text-[15px] leading-relaxed text-balck-foreground md:text-base"
+            className="mt-5 max-w-xl text-[15px] leading-relaxed text-muted-foreground md:text-base"
           >
             Ank Digital Media builds and grows brands online — <Typewriter />
             <br />

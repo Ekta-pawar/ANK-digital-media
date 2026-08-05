@@ -44,7 +44,7 @@ const COLS = [
 
 export function Footer() {
   return (
-    <footer className="relative overflow-hidden border-t border-border bg-secondary/50">
+    <footer className="relative overflow-hidden border-t border-border bg-sky-100">
       {BLOBS.map((b, i) => (
         <motion.div
           key={i}
@@ -131,7 +131,7 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="relative border-t border-border bg-secondary/70">
+      <div className="relative border-t border-border bg-sky-200">
         <div className="mx-auto flex max-w-7xl flex-col gap-3 px-6 py-5 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
           <span>© Copyright 2015–2026. All Rights Reserved | Ank Digital Media</span>
           <div className="flex flex-wrap gap-4">
