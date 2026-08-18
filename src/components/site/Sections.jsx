@@ -95,7 +95,10 @@ export function Header({ badge, title, sub, center = true, subFrom = "up", subDu
 export function Marquee() {
   const line = "The Fastest way to grow your business with Digital Presence";
   return (
-    <div className="overflow-hidden border-y border-border bg-(--gradient-hero) py-3">
+    <div
+      className="overflow-hidden border-y border-border py-3"
+      style={{ background: "var(--gradient-hero)" }}
+    >
       <div className="animate-marquee flex w-max gap-10 whitespace-nowrap">
         {Array.from({ length: 8 }).map((_, i) => (
           <span key={i} className="text-sm font-semibold tracking-wide text-primary-foreground">

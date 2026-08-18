@@ -70,7 +70,7 @@ export function Footer() {
         />
       ))}
 
-      <div className="relative mx-auto max-w-7xl px-6 py-16">
+      <div className="relative mx-auto max-w-7xl px-6 py-10">
         <motion.a
           href="https://api.whatsapp.com/send/?phone=919999779817&text&type=phone_number&app_absent=0"
           target="_blank"
