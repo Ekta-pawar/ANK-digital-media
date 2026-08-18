@@ -29,7 +29,8 @@ import {
 
 import { Link } from "@tanstack/react-router";
 
-import promoVideo from "@/assets/build_a_video_it_have_same_peo.mp4";
+import promoVideo from "@/assets/video Ank1.mp4";
+import pro from "@/assets/build_a_video_it_have_same_peo.mp4";
 import showcaseImg from "@/assets/Screenshot 2026-02-23 214451.png";
 import { CAREER_CONTENT } from "@/routes/career/-content";
 
@@ -94,7 +95,7 @@ export function Header({ badge, title, sub, center = true, subFrom = "up", subDu
 export function Marquee() {
   const line = "The Fastest way to grow your business with Digital Presence";
   return (
-    <div className="overflow-hidden border-y border-border bg-[linear-gradient(120deg,#29b6f6,#0277bd)] py-3">
+    <div className="overflow-hidden border-y border-border bg-(--gradient-hero) py-3">
       <div className="animate-marquee flex w-max gap-10 whitespace-nowrap">
         {Array.from({ length: 8 }).map((_, i) => (
           <span key={i} className="text-sm font-semibold tracking-wide text-primary-foreground">
@@ -148,7 +149,7 @@ export function VideoPromo() {
               transition={{ delay: 0.3, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
               className="animate-float absolute -bottom-6 -left-6 flex items-center gap-3 rounded-2xl border border-border bg-card px-5 py-4 shadow-lift"
             >
-              <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-[linear-gradient(120deg,#29b6f6,#0277bd)] text-white">
+              <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-(--gradient-hero) text-white">
                 <ShieldCheck className="h-5 w-5" />
               </div>
               <div>
@@ -258,7 +259,7 @@ export function About() {
           ].map((c, i) => (
             <Reveal key={c.t} delay={i * 0.12}>
               <div className="card-soft group h-full rounded-2xl p-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-lift">
-                <div className="grid h-12 w-12 place-items-center rounded-xl bg-[linear-gradient(120deg,#29b6f6,#0277bd)] text-primary-foreground transition-transform duration-300 group-hover:scale-105">
+                <div className="grid h-12 w-12 place-items-center rounded-xl bg-(--gradient-hero) text-primary-foreground transition-transform duration-300 group-hover:scale-105">
                   <c.icon className="h-5 w-5" />
                 </div>
                 <h3 className="mt-4 font-display text-lg font-semibold">{c.t}</h3>
@@ -333,7 +334,7 @@ export function Plans() {
           {PLANS.map((p, i) => (
             <Reveal key={p.title} delay={i * 0.1}>
               <div className="card-soft group flex h-full flex-col overflow-hidden rounded-2xl transition-all duration-300 hover:-translate-y-2 hover:shadow-lift">
-                <div className="flex items-center gap-2 bg-[linear-gradient(120deg,#29b6f6,#0277bd)] px-5 py-4 text-primary-foreground">
+                <div className="flex items-center gap-2 bg-(--gradient-hero) px-5 py-4 text-primary-foreground">
                   <p.icon className="h-4 w-4 shrink-0" />
                   <span className="text-sm font-semibold uppercase tracking-[0.14em]">
                     {p.title}
@@ -357,7 +358,7 @@ export function Plans() {
                 <div className="px-5 pb-6">
                   <a
                     href="/contact"
-                    className="block rounded-full bg-[linear-gradient(120deg,#29b6f6,#0277bd)] px-4 py-2.5 text-center text-sm font-semibold text-primary-foreground transition-transform duration-300 hover:-translate-y-0.5"
+                    className="block rounded-full bg-(--gradient-hero) px-4 py-2.5 text-center text-sm font-semibold text-primary-foreground transition-transform duration-300 hover:-translate-y-0.5"
                   >
                     Get Started Now!
                   </a>
@@ -476,7 +477,7 @@ export function Features() {
           {FEATURES.map((f, i) => (
             <Reveal key={f.t} delay={i * 0.08}>
               <div className="card-soft group h-full rounded-2xl p-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-lift">
-                <div className="grid h-11 w-11 place-items-center rounded-xl bg-[linear-gradient(120deg,#29b6f6,#0277bd)] text-primary-foreground transition-transform duration-300 group-hover:rotate-6">
+                <div className="grid h-11 w-11 place-items-center rounded-xl bg-(--gradient-hero) text-primary-foreground transition-transform duration-300 group-hover:rotate-6">
                   <f.icon className="h-5 w-5" />
                 </div>
                 <h3 className="mt-4 font-display text-base font-semibold">{f.t}</h3>
@@ -519,7 +520,7 @@ export function Stats() {
     { n: 15, s: " yrs", l: "In business" },
   ];
   return (
-    <section className="bg-[linear-gradient(120deg,#29b6f6,#0277bd)] py-10 sm:py-14">
+    <section className="bg-(--gradient-hero) py-10 sm:py-14">
       <div className="mx-auto grid max-w-7xl grid-cols-2 gap-6 px-6 sm:gap-8 lg:grid-cols-4">
         {data.map((d, i) => (
           <Reveal key={d.l} delay={i * 0.1}>
@@ -599,7 +600,7 @@ export function Showcase() {
               className="group relative overflow-hidden rounded-[999px] border border-primary/15 bg-card shadow-lift"
             >
               <video
-                src={promoVideo}
+                src={pro}
                 autoPlay
                 loop
                 muted
@@ -635,7 +636,7 @@ export function Showcase() {
           <Reveal delay={0.3} duration={0.6} from="right" once={false}>
             <a
               href="/about"
-              className="group/btn mt-8 inline-flex items-center gap-4 rounded-full bg-[linear-gradient(120deg,#29b6f6,#0277bd)] py-2 pl-6 pr-2 text-sm font-semibold text-primary-foreground shadow-soft transition-transform duration-300 hover:-translate-y-1"
+              className="group/btn mt-8 inline-flex items-center gap-4 rounded-full bg-(--gradient-hero) py-2 pl-6 pr-2 text-sm font-semibold text-primary-foreground shadow-soft transition-transform duration-300 hover:-translate-y-1"
             >
               Know About Us
               <span className="grid h-9 w-9 place-items-center rounded-full bg-white/20 transition-transform duration-300 group-hover/btn:translate-x-1 group-hover/btn:bg-white/30">
@@ -683,7 +684,7 @@ export function Projects() {
                     whileInView={{ opacity: 1, y: 0, scale: 1 }}
                     viewport={{ once: true, amount: 0.4 }}
                     transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-                    className="grid h-12 w-12 place-items-center rounded-xl bg-[linear-gradient(120deg,#29b6f6,#0277bd)] text-primary-foreground"
+                    className="grid h-12 w-12 place-items-center rounded-xl bg-(--gradient-hero) text-primary-foreground"
                   >
                     <p.icon className="h-5 w-5" />
                   </motion.div>
