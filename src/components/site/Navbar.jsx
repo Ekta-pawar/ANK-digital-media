@@ -276,12 +276,20 @@ export function Navbar() {
                   </motion.div>
                 ))}
               </div>
-              <a
-                href="tel:+919999779817"
-                className="mt-6 flex items-center justify-center gap-2 rounded-full bg-[linear-gradient(120deg,#29b6f6,#0277bd)] px-5 py-3 text-sm font-semibold text-primary-foreground"
-              >
-                <Phone className="h-4 w-4" /> Call us now
-              </a>
+              <div className="mt-6 grid grid-cols-2 gap-3">
+                <button
+                  onClick={() => go("/contact")}
+                  className="flex items-center justify-center gap-2 rounded-full bg-[linear-gradient(120deg,#29b6f6,#0277bd)] px-5 py-3 text-sm font-semibold text-primary-foreground"
+                >
+                  Get a Quote
+                </button>
+                <a
+                  href="tel:+919999779817"
+                  className="flex items-center justify-center gap-2 rounded-full border border-border px-5 py-3 text-sm font-semibold text-foreground/80"
+                >
+                  <Phone className="h-4 w-4" /> Call us
+                </a>
+              </div>
             </motion.aside>
           </>
         )}

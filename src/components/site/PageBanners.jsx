@@ -170,7 +170,7 @@ const JOURNEY = [
 
 export function Timeline() {
   return (
-    <section className="bg-surface py-20 md:py-28">
+    <section className="bg-surface py-4 md:py-7">
       <div className="mx-auto max-w-4xl px-6">
         <Header
           badge="Our Journey"
@@ -239,14 +239,18 @@ export function ContactBanner() {
           items={[{ label: "Home", href: "/" }, { label: "Contact" }]}
           className="justify-center text-white/70"
         />
-        <motion.span
+        <motion.a
+          href="https://api.whatsapp.com/send/?phone=919999779817&text&type=phone_number&app_absent=0"
+          target="_blank"
+          rel="noreferrer noopener"
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.15 }}
+          whileHover={{ scale: 1.05 }}
           className="mt-5 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-white backdrop-blur-sm"
         >
           <MessageCircle className="h-3 w-3" /> Get in Touch
-        </motion.span>
+        </motion.a>
         <motion.h1
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
@@ -280,7 +284,7 @@ const CONTACT_FACTS = [
 
 export function ContactExtras() {
   return (
-    <section className="bg-surface py-14 md:py-16">
+    <section className="bg-surface py-7 md:py-10">
       <div className="mx-auto max-w-7xl px-6">
         <div className="grid divide-y divide-border overflow-hidden rounded-2xl border border-border bg-card sm:grid-cols-4 sm:divide-x sm:divide-y-0">
           {CONTACT_FACTS.map((f, i) => (
@@ -304,7 +308,7 @@ export function ContactExtras() {
 
 const CAREER_STATS = [
   { n: 25, s: "+", l: "Team members" },
-  { n: 4, s: "", l: "Open roles" },
+  { n: 2, s: "", l: "Open roles" },
   { n: 15, s: " yrs", l: "Growing team" },
 ];
 
@@ -365,7 +369,7 @@ export function CareerBanner() {
           and messaging products for brands across India.
         </motion.p>
 
-        <div className="mt-10 flex flex-wrap gap-8 border-t border-white/15 pt-6">
+        <div className="mt-3 flex flex-wrap gap-8 border-t border-white/15 pt-6">
           {CAREER_STATS.map((d, i) => (
             <motion.div
               key={d.l}
@@ -400,7 +404,7 @@ const INDUSTRIES = [
 
 export function Industries() {
   return (
-    <section className="bg-background py-20 md:py-28">
+    <section className="bg-background py-20 md:py-10">
       <div className="mx-auto max-w-7xl px-6">
         <Header badge="Where we've worked" title="Industries we've delivered results for" />
         <div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-4">
@@ -564,6 +568,49 @@ export function ServiceDetailBanner({ icon: Icon, category, title, description }
         <Reveal delay={0.3}>
           <p className="mx-auto mt-4 max-w-2xl text-[15px] leading-relaxed text-muted-foreground">
             {description}
+          </p>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+/* ---------- career detail banner (per-role) ---------- */
+
+export function CareerDetailBanner({ title, type, location, experience, summary }) {
+  return (
+    <section className="relative overflow-hidden bg-[linear-gradient(120deg,rgba(41,182,246,0.12),rgba(2,119,189,0.06))] pb-14 pt-36 md:pb-16 md:pt-40">
+      <div className="pointer-events-none absolute -left-20 top-0 h-64 w-64 rounded-full bg-primary/10 blur-3xl" />
+      <div className="pointer-events-none absolute -right-16 bottom-0 h-56 w-56 rounded-full bg-primary/10 blur-3xl" />
+
+      <div className="relative mx-auto max-w-4xl px-6 text-center">
+        <Breadcrumb
+          items={[
+            { label: "Home", href: "/" },
+            { label: "Career", href: "/career" },
+            { label: title },
+          ]}
+          className="justify-center"
+        />
+        <Reveal delay={0.1} className="mt-6 flex flex-wrap justify-center gap-2">
+          <span className="inline-flex items-center gap-2 rounded-full border border-primary/25 bg-card px-4 py-1.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-primary">
+            {type}
+          </span>
+          <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-1.5 text-[11px] font-semibold text-muted-foreground">
+            {location}
+          </span>
+          <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-1.5 text-[11px] font-semibold text-muted-foreground">
+            {experience}
+          </span>
+        </Reveal>
+        <Reveal delay={0.2} from="left" duration={0.9}>
+          <h1 className="mt-4 font-display text-[clamp(1.9rem,4.4vw,2.8rem)] font-bold leading-tight">
+            {title}
+          </h1>
+        </Reveal>
+        <Reveal delay={0.3}>
+          <p className="mx-auto mt-4 max-w-2xl text-[15px] leading-relaxed text-muted-foreground">
+            {summary}
           </p>
         </Reveal>
       </div>

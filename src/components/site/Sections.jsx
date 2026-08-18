@@ -27,8 +27,11 @@ import {
   Wand2,
 } from "lucide-react";
 
+import { Link } from "@tanstack/react-router";
+
 import promoVideo from "@/assets/build_a_video_it_have_same_peo.mp4";
 import showcaseImg from "@/assets/Screenshot 2026-02-23 214451.png";
+import { CAREER_CONTENT } from "@/routes/career/-content";
 
 /* ---------- shared ---------- */
 
@@ -380,7 +383,7 @@ const STEPS = [
 
 export function Process() {
   return (
-    <section id="process" className="bg-surface py-20 md:py-28">
+    <section id="process" className="bg-surface py-4 md:py-7">
       <div className="mx-auto max-w-7xl px-6">
         <Header
           badge="Our Process"
@@ -516,15 +519,15 @@ export function Stats() {
     { n: 15, s: " yrs", l: "In business" },
   ];
   return (
-    <section className="bg-[linear-gradient(120deg,#29b6f6,#0277bd)] py-14">
-      <div className="mx-auto grid max-w-7xl gap-8 px-6 sm:grid-cols-2 lg:grid-cols-4">
+    <section className="bg-[linear-gradient(120deg,#29b6f6,#0277bd)] py-10 sm:py-14">
+      <div className="mx-auto grid max-w-7xl grid-cols-2 gap-6 px-6 sm:gap-8 lg:grid-cols-4">
         {data.map((d, i) => (
           <Reveal key={d.l} delay={i * 0.1}>
             <div className="text-center text-primary-foreground">
-              <div className="font-display text-4xl font-black">
+              <div className="font-display text-2xl font-black sm:text-3xl lg:text-4xl">
                 <Counter to={d.n} suffix={d.s} />
               </div>
-              <div className="mt-1 text-sm opacity-90">{d.l}</div>
+              <div className="mt-1 text-xs opacity-90 sm:text-sm">{d.l}</div>
             </div>
           </Reveal>
         ))}
@@ -658,7 +661,7 @@ const PROJECTS = [
 
 export function Projects() {
   return (
-    <section id="projects" className="bg-surface py-20 md:py-28">
+    <section id="projects" className="bg-surface py-5 md:py-7">
       <div className="mx-auto max-w-7xl px-6">
         <Header badge="Featured Projects" title="Our work, measured in results" />
         <div className="mt-12">
@@ -724,12 +727,11 @@ export function Projects() {
 /* ---------- career ---------- */
 
 export function Career() {
-  const roles = [
-    { t: "Frontend Developer", x: "React · 1–3 yrs · New Delhi" },
-    { t: "SEO Executive", x: "On-page & off-page · 0–2 yrs" },
-    { t: "Business Development", x: "IT sales · 1–4 yrs" },
-    { t: "Graphic Designer", x: "Figma · Adobe · 1–3 yrs" },
-  ];
+  const roles = Object.entries(CAREER_CONTENT).map(([slug, r]) => ({
+    slug,
+    t: r.title,
+    x: `${r.location} · ${r.experience}`,
+  }));
   return (
     <section id="career" className="bg-background py-20 md:py-28">
       <div className="mx-auto max-w-7xl px-6">
@@ -740,9 +742,10 @@ export function Career() {
         />
         <div className="mt-12 grid gap-4 md:grid-cols-2">
           {roles.map((r, i) => (
-            <Reveal key={r.t} delay={i * 0.08}>
-              <a
-                href="#contact"
+            <Reveal key={r.slug} delay={i * 0.08}>
+              <Link
+                to="/career/$slug"
+                params={{ slug: r.slug }}
                 className="card-soft group flex items-center justify-between gap-4 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-lift"
               >
                 <div className="min-w-0">
@@ -752,7 +755,7 @@ export function Career() {
                 <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-secondary text-primary transition-transform group-hover:rotate-45">
                   <ArrowUpRight className="h-4 w-4" />
                 </span>
-              </a>
+              </Link>
             </Reveal>
           ))}
         </div>

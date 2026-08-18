@@ -13,7 +13,10 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as CareerRouteImport } from './routes/career'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as ServicesRouteImport } from './routes/services'
+import { Route as CareerIndexRouteImport } from './routes/career/index'
+import { Route as CareerSlugRouteImport } from './routes/career/$slug'
 import { Route as ServicesIndexRouteImport } from './routes/services/index'
 import { Route as ServicesSlugRouteImport } from './routes/services/$slug'
 
@@ -37,10 +40,25 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
+  id: '/privacy-policy',
+  path: '/privacy-policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ServicesRoute = ServicesRouteImport.update({
   id: '/services',
   path: '/services',
   getParentRoute: () => rootRouteImport,
+} as any)
+const CareerIndexRoute = CareerIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => CareerRoute,
+} as any)
+const CareerSlugRoute = CareerSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => CareerRoute,
 } as any)
 const ServicesIndexRoute = ServicesIndexRouteImport.update({
   id: '/',
@@ -56,28 +74,36 @@ const ServicesSlugRoute = ServicesSlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/career': typeof CareerRoute
+  '/career': typeof CareerRouteWithChildren
   '/contact': typeof ContactRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
   '/services': typeof ServicesRouteWithChildren
+  '/career/$slug': typeof CareerSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
+  '/career/': typeof CareerIndexRoute
   '/services/': typeof ServicesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/career': typeof CareerRoute
   '/contact': typeof ContactRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
+  '/career/$slug': typeof CareerSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
+  '/career': typeof CareerIndexRoute
   '/services': typeof ServicesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/career': typeof CareerRoute
+  '/career': typeof CareerRouteWithChildren
   '/contact': typeof ContactRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
   '/services': typeof ServicesRouteWithChildren
+  '/career/$slug': typeof CareerSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
+  '/career/': typeof CareerIndexRoute
   '/services/': typeof ServicesIndexRoute
 }
 export interface FileRouteTypes {
@@ -87,27 +113,42 @@ export interface FileRouteTypes {
     | '/about'
     | '/career'
     | '/contact'
+    | '/privacy-policy'
     | '/services'
+    | '/career/$slug'
     | '/services/$slug'
+    | '/career/'
     | '/services/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/career' | '/contact' | '/services/$slug' | '/services'
+  to:
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/privacy-policy'
+    | '/career/$slug'
+    | '/services/$slug'
+    | '/career'
+    | '/services'
   id:
     | '__root__'
     | '/'
     | '/about'
     | '/career'
     | '/contact'
+    | '/privacy-policy'
     | '/services'
+    | '/career/$slug'
     | '/services/$slug'
+    | '/career/'
     | '/services/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
-  CareerRoute: typeof CareerRoute
+  CareerRoute: typeof CareerRouteWithChildren
   ContactRoute: typeof ContactRoute
+  PrivacyPolicyRoute: typeof PrivacyPolicyRoute
   ServicesRoute: typeof ServicesRouteWithChildren
 }
 
@@ -141,12 +182,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/privacy-policy': {
+      id: '/privacy-policy'
+      path: '/privacy-policy'
+      fullPath: '/privacy-policy'
+      preLoaderRoute: typeof PrivacyPolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/services': {
       id: '/services'
       path: '/services'
       fullPath: '/services'
       preLoaderRoute: typeof ServicesRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/career/': {
+      id: '/career/'
+      path: '/'
+      fullPath: '/career/'
+      preLoaderRoute: typeof CareerIndexRouteImport
+      parentRoute: typeof CareerRoute
+    }
+    '/career/$slug': {
+      id: '/career/$slug'
+      path: '/$slug'
+      fullPath: '/career/$slug'
+      preLoaderRoute: typeof CareerSlugRouteImport
+      parentRoute: typeof CareerRoute
     }
     '/services/': {
       id: '/services/'
@@ -165,6 +227,19 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface CareerRouteChildren {
+  CareerSlugRoute: typeof CareerSlugRoute
+  CareerIndexRoute: typeof CareerIndexRoute
+}
+
+const CareerRouteChildren: CareerRouteChildren = {
+  CareerSlugRoute: CareerSlugRoute,
+  CareerIndexRoute: CareerIndexRoute,
+}
+
+const CareerRouteWithChildren =
+  CareerRoute._addFileChildren(CareerRouteChildren)
+
 interface ServicesRouteChildren {
   ServicesSlugRoute: typeof ServicesSlugRoute
   ServicesIndexRoute: typeof ServicesIndexRoute
@@ -182,8 +257,9 @@ const ServicesRouteWithChildren = ServicesRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
-  CareerRoute: CareerRoute,
+  CareerRoute: CareerRouteWithChildren,
   ContactRoute: ContactRoute,
+  PrivacyPolicyRoute: PrivacyPolicyRoute,
   ServicesRoute: ServicesRouteWithChildren,
 }
 export const routeTree = rootRouteImport

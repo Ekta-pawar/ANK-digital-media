@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useScroll, useSpring } from "motion/react";
-import { ArrowUp, Facebook, Instagram, Linkedin, MessageCircle, Twitter } from "lucide-react";
+import { ArrowUp, Facebook, Instagram, Linkedin, MessageCircle, X, Youtube } from "lucide-react";
 
 const SOCIALS = [
-  { icon: Facebook, label: "Facebook", href: "/" },
-  { icon: Instagram, label: "Instagram", href: "/" },
-  { icon: Twitter, label: "Twitter", href: "/" },
-  { icon: Linkedin, label: "LinkedIn", href: "/" },
+  { icon: Facebook, label: "Facebook", href: "https://www.facebook.com/ankdigitalmedia/" },
+  { icon: Instagram, label: "Instagram", href: "https://www.instagram.com/ankdigitalmediaa/" },
+  { icon: X, label: "X (Twitter)", href: "https://x.com/ank_digital" },
+  { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/company/ankdigitalmedia" },
+  { icon: Youtube, label: "YouTube", href: "https://www.youtube.com/@ankdigitalmedia" },
 ];
 
 export function FloatingActions() {
@@ -33,6 +34,8 @@ export function FloatingActions() {
           <motion.a
             key={s.label}
             href={s.href}
+            target="_blank"
+            rel="noreferrer noopener"
             aria-label={s.label}
             initial={{ opacity: 0, x: 120 }}
             animate={{ opacity: 1, x: 0 }}

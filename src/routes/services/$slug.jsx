@@ -42,7 +42,7 @@ function ServiceDetailPage() {
         description={entry.description}
       />
 
-      <section className="bg-background pb-20 md:pb-28">
+      <section className="bg-background pb-6 md:pb-10">
         <div className="mx-auto max-w-5xl px-6">
           <div className="grid gap-4 pt-14 sm:grid-cols-2 md:pt-16">
             {entry.features.map((f, i) => (
@@ -69,7 +69,7 @@ function ServiceDetailPage() {
       </section>
 
       {related.length > 0 && (
-        <section className="bg-surface py-16 md:py-20">
+        <section className="bg-surface py-6 md:py-10">
           <div className="mx-auto max-w-5xl px-6">
             <h2 className="font-display text-lg font-bold">
               More in <span className="text-gradient">{entry.category}</span>

@@ -1,6 +1,14 @@
 import { Link } from "@tanstack/react-router";
 import { motion } from "motion/react";
-import { Facebook, Instagram, Linkedin, Mail, MapPin, Phone, Twitter } from "lucide-react";
+import { Facebook, Instagram, Linkedin, Mail, MapPin, Phone, X, Youtube } from "lucide-react";
+
+const SOCIALS = [
+  { icon: Facebook, label: "Facebook", href: "https://www.facebook.com/ankdigitalmedia/" },
+  { icon: Instagram, label: "Instagram", href: "https://www.instagram.com/ankdigitalmediaa/" },
+  { icon: X, label: "X (Twitter)", href: "https://x.com/ank_digital" },
+  { icon: Linkedin, label: "LinkedIn", href: "https://www.linkedin.com/company/ankdigitalmedia" },
+  { icon: Youtube, label: "YouTube", href: "https://www.youtube.com/@ankdigitalmedia" },
+];
 
 const BLOBS = [
   { top: "-10%", left: "8%", size: 260, delay: 0 },
@@ -63,15 +71,19 @@ export function Footer() {
       ))}
 
       <div className="relative mx-auto max-w-7xl px-6 py-16">
-        <motion.div
+        <motion.a
+          href="https://api.whatsapp.com/send/?phone=919999779817&text&type=phone_number&app_absent=0"
+          target="_blank"
+          rel="noreferrer noopener"
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
+          whileHover={{ scale: 1.03 }}
           className="inline-flex rounded-2xl bg-[linear-gradient(120deg,#29b6f6,#0277bd)] px-6 py-3 font-display text-lg font-bold text-primary-foreground shadow-soft"
         >
           Get in Touch
-        </motion.div>
+        </motion.a>
 
         <div className="mt-10 grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-4">
           {COLS.map((c, ci) => (
@@ -130,15 +142,17 @@ export function Footer() {
               </li>
             </ul>
             <div className="mt-5 flex gap-2">
-              {[Facebook, Instagram, Twitter, Linkedin].map((I, i) => (
-                <Link
-                  key={i}
-                  to="/"
-                  aria-label="Social link"
+              {SOCIALS.map((s) => (
+                <a
+                  key={s.label}
+                  href={s.href}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  aria-label={s.label}
                   className="grid h-9 w-9 place-items-center rounded-xl border border-border bg-card text-primary transition-all hover:-translate-y-1 hover:shadow-lift"
                 >
-                  <I className="h-4 w-4" />
-                </Link>
+                  <s.icon className="h-4 w-4" />
+                </a>
               ))}
             </div>
           </motion.div>
@@ -152,9 +166,9 @@ export function Footer() {
             <Link to="/contact" className="hover:text-primary">
               Contact
             </Link>
-            <a href="#privacy" className="hover:text-primary">
+            <Link to="/privacy-policy" className="hover:text-primary">
               Privacy & Policy
-            </a>
+            </Link>
           </div>
         </div>
       </div>
