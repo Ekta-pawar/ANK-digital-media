@@ -130,3 +130,77 @@ export const getMe = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getAdmins = async (req, res, next) => {
+  try {
+    const admins = await User.find().select("name email createdAt").sort({ createdAt: -1 });
+
+    res.status(200).json({
+      success: true,
+      admins,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const createAdmin = async (req, res, next) => {
+  try {
+    const { name, email, password } = req.body;
+
+    const existingUser = await User.findOne({ email });
+
+    if (existingUser) {
+      return res.status(409).json({
+        success: false,
+        message: "An admin with this email already exists",
+      });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 12);
+
+    const admin = await User.create({
+      name,
+      email,
+      password: hashedPassword,
+    });
+
+    res.status(201).json({
+      success: true,
+      message: "Admin created successfully",
+      admin: {
+        id: admin._id,
+        name: admin.name,
+        email: admin.email,
+        createdAt: admin.createdAt,
+      },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const changePassword = async (req, res, next) => {
+  try {
+    const { email, newPassword } = req.body;
+
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "Admin not found",
+      });
+    }
+
+    user.password = await bcrypt.hash(newPassword, 12);
+    await user.save();
+
+    res.status(200).json({
+      success: true,
+      message: `Password updated for ${user.email}`,
+    });
+  } catch (error) {
+    next(error);
+  }
+};

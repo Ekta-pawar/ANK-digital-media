@@ -1,13 +1,19 @@
 import { Link, Outlet, createFileRoute, useNavigate, useRouterState } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Inbox, LogOut, Menu, X } from "lucide-react";
+import { Inbox, KeyRound, LayoutDashboard, LogOut, Menu, ShieldCheck, X } from "lucide-react";
 import { getCurrentUser, logout } from "@/lib/api";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
+import { ChangePasswordModal } from "@/components/admin/ChangePasswordModal";
 import logo from "@/assets/Screenshot_2026-07-25_141748-removebg-preview.png";
 
 export const Route = createFileRoute("/admin")({ component: AdminRoute });
 
-const navigation = [{ label: "Enquiries", icon: Inbox, to: "/admin" }];
+const navigation = [
+  { label: "Dashboard", icon: LayoutDashboard, to: "/admin" },
+  { label: "Enquiries", icon: Inbox, to: "/admin/enquiries" },
+  { label: "Admins", icon: ShieldCheck, to: "/admin/admins" },
+];
 
 function AdminRoute() {
   const pathname = useRouterState({ select: (state) => state.location.pathname });
@@ -25,6 +31,7 @@ function AdminShell() {
   const [user, setUser] = useState(null);
   const [checking, setChecking] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [passwordModalOpen, setPasswordModalOpen] = useState(false);
 
   useEffect(() => {
     let mounted = true;
@@ -46,9 +53,30 @@ function AdminShell() {
 
   if (checking) {
     return (
-      <main className="flex min-h-screen items-center justify-center text-sm text-slate-500">
-        Checking your session…
-      </main>
+      <div className="min-h-screen bg-slate-50">
+        <div className="fixed inset-y-0 left-0 hidden w-64 flex-col bg-slate-950 p-4 lg:flex">
+          <Skeleton className="h-9 w-9 rounded-md bg-white/10" />
+          <div className="mt-8 space-y-2">
+            <Skeleton className="h-10 w-full bg-white/10" />
+            <Skeleton className="h-10 w-full bg-white/10" />
+            <Skeleton className="h-10 w-full bg-white/10" />
+          </div>
+        </div>
+        <div className="lg:pl-64">
+          <div className="flex h-16 items-center border-b border-slate-200 bg-white px-6">
+            <Skeleton className="h-5 w-28" />
+          </div>
+          <div className="mx-auto max-w-6xl space-y-4 p-4 sm:p-6">
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              <Skeleton className="h-20 rounded-xl" />
+              <Skeleton className="h-20 rounded-xl" />
+              <Skeleton className="h-20 rounded-xl" />
+              <Skeleton className="h-20 rounded-xl" />
+            </div>
+            <Skeleton className="h-64 rounded-xl" />
+          </div>
+        </div>
+      </div>
     );
   }
 
@@ -125,8 +153,12 @@ function AdminShell() {
             <h1 className="text-base font-bold sm:text-lg">{currentItem?.label || "Admin"}</h1>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             <span className="hidden text-sm text-slate-600 sm:inline">{user.email}</span>
+            <Button variant="outline" size="sm" onClick={() => setPasswordModalOpen(true)}>
+              <KeyRound className="h-4 w-4" />
+              <span className="hidden sm:inline">Change password</span>
+            </Button>
             <Button variant="outline" size="sm" onClick={handleLogout} className="lg:hidden">
               <LogOut className="h-4 w-4" />
             </Button>
@@ -137,6 +169,8 @@ function AdminShell() {
           <Outlet />
         </main>
       </div>
+
+      <ChangePasswordModal open={passwordModalOpen} onOpenChange={setPasswordModalOpen} />
     </div>
   );
 }

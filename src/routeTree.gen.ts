@@ -17,6 +17,8 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as AdminAdminsRouteImport } from './routes/admin.admins'
+import { Route as AdminEnquiriesRouteImport } from './routes/admin.enquiries'
 import { Route as AdminLoginRouteImport } from './routes/admin.login'
 import { Route as CareerIndexRouteImport } from './routes/career/index'
 import { Route as CareerSlugRouteImport } from './routes/career/$slug'
@@ -63,6 +65,16 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminAdminsRoute = AdminAdminsRouteImport.update({
+  id: '/admins',
+  path: '/admins',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminEnquiriesRoute = AdminEnquiriesRouteImport.update({
+  id: '/enquiries',
+  path: '/enquiries',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminLoginRoute = AdminLoginRouteImport.update({
   id: '/login',
   path: '/login',
@@ -97,6 +109,8 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/services': typeof ServicesRouteWithChildren
+  '/admin/admins': typeof AdminAdminsRoute
+  '/admin/enquiries': typeof AdminEnquiriesRoute
   '/admin/login': typeof AdminLoginRoute
   '/career/$slug': typeof CareerSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
@@ -109,6 +123,8 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
+  '/admin/admins': typeof AdminAdminsRoute
+  '/admin/enquiries': typeof AdminEnquiriesRoute
   '/admin/login': typeof AdminLoginRoute
   '/career/$slug': typeof CareerSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
@@ -125,6 +141,8 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/services': typeof ServicesRouteWithChildren
+  '/admin/admins': typeof AdminAdminsRoute
+  '/admin/enquiries': typeof AdminEnquiriesRoute
   '/admin/login': typeof AdminLoginRoute
   '/career/$slug': typeof CareerSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
@@ -142,6 +160,8 @@ export interface FileRouteTypes {
     | '/contact'
     | '/privacy-policy'
     | '/services'
+    | '/admin/admins'
+    | '/admin/enquiries'
     | '/admin/login'
     | '/career/$slug'
     | '/services/$slug'
@@ -154,6 +174,8 @@ export interface FileRouteTypes {
     | '/about'
     | '/contact'
     | '/privacy-policy'
+    | '/admin/admins'
+    | '/admin/enquiries'
     | '/admin/login'
     | '/career/$slug'
     | '/services/$slug'
@@ -169,6 +191,8 @@ export interface FileRouteTypes {
     | '/contact'
     | '/privacy-policy'
     | '/services'
+    | '/admin/admins'
+    | '/admin/enquiries'
     | '/admin/login'
     | '/career/$slug'
     | '/services/$slug'
@@ -245,6 +269,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/admins': {
+      id: '/admin/admins'
+      path: '/admins'
+      fullPath: '/admin/admins'
+      preLoaderRoute: typeof AdminAdminsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/enquiries': {
+      id: '/admin/enquiries'
+      path: '/enquiries'
+      fullPath: '/admin/enquiries'
+      preLoaderRoute: typeof AdminEnquiriesRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/login': {
       id: '/admin/login'
       path: '/login'
@@ -284,11 +322,15 @@ declare module '@tanstack/react-router' {
 }
 
 interface AdminRouteChildren {
+  AdminAdminsRoute: typeof AdminAdminsRoute
+  AdminEnquiriesRoute: typeof AdminEnquiriesRoute
   AdminLoginRoute: typeof AdminLoginRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
+  AdminAdminsRoute: AdminAdminsRoute,
+  AdminEnquiriesRoute: AdminEnquiriesRoute,
   AdminLoginRoute: AdminLoginRoute,
   AdminIndexRoute: AdminIndexRoute,
 }

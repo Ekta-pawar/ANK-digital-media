@@ -52,3 +52,21 @@ export function updateContactStatus(id, status) {
 export function deleteContact(id) {
   return request(`/contacts/${id}`, { method: "DELETE" });
 }
+
+export function getAdmins() {
+  return request("/auth/admins").then((data) => data.admins);
+}
+
+export function createAdmin(payload) {
+  return request("/auth/admins", {
+    method: "POST",
+    body: JSON.stringify(payload),
+  }).then((data) => data.admin);
+}
+
+export function changePassword(email, newPassword) {
+  return request("/auth/password", {
+    method: "PATCH",
+    body: JSON.stringify({ email, newPassword }),
+  });
+}

@@ -120,6 +120,26 @@
   animation: pulse-ring 2.4s ease-out infinite;
 }
 
+@utility skeleton-shimmer {
+  position: relative;
+  overflow: hidden;
+  background: color-mix(in oklab, var(--sky) 12%, transparent);
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      color-mix(in oklab, white 55%, transparent),
+      transparent
+    );
+    animation: skeleton-shimmer 1.6s ease-in-out infinite;
+  }
+}
+
 @keyframes pulse-ring {
   0% { box-shadow: 0 0 0 0 rgba(41, 182, 246, 0.5); }
   70% { box-shadow: 0 0 0 16px rgba(41, 182, 246, 0); }
@@ -143,6 +163,9 @@
 }
 @keyframes gradient-shimmer {
   to { background-position: -200% center; }
+}
+@keyframes skeleton-shimmer {
+  100% { transform: translateX(100%); }
 }
 .animate-float { animation: float-y 4s ease-in-out infinite; }
 .animate-ken { animation: ken-burns 9s ease-out forwards; }

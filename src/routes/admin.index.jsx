@@ -1,30 +1,12 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { Link, createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
-import { toast } from "sonner";
-import { Inbox, MessageCircle, Trash2, CheckCircle2 } from "lucide-react";
-import { getContacts, updateContactStatus, deleteContact } from "@/lib/api";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { ArrowRight, CheckCircle2, Inbox, MessageCircle, ShieldCheck } from "lucide-react";
+import { getContacts, getAdmins } from "@/lib/api";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Skeleton } from "@/components/ui/skeleton";
 
-export const Route = createFileRoute("/admin/")({ component: AdminDashboard });
-
-const STATUS_OPTIONS = ["new", "contacted", "resolved"];
+export const Route = createFileRoute("/admin/")({ component: DashboardPage });
 
 const STATUS_VARIANT = {
   new: "default",
@@ -32,20 +14,19 @@ const STATUS_VARIANT = {
   resolved: "outline",
 };
 
-function AdminDashboard() {
+function DashboardPage() {
   const [contacts, setContacts] = useState([]);
+  const [adminCount, setAdminCount] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
 
-  const loadContacts = () => {
-    setLoading(true);
-    getContacts()
-      .then(setContacts)
-      .catch((err) => setError(err.message || "Failed to load enquiries"))
+  useEffect(() => {
+    Promise.all([getContacts(), getAdmins()])
+      .then(([contactsData, admins]) => {
+        setContacts(contactsData);
+        setAdminCount(admins.length);
+      })
       .finally(() => setLoading(false));
-  };
-
-  useEffect(loadContacts, []);
+  }, []);
 
   const stats = useMemo(
     () => ({
@@ -56,134 +37,81 @@ function AdminDashboard() {
     [contacts]
   );
 
-  const handleStatusChange = async (id, status) => {
-    const updated = await updateContactStatus(id, status).catch((err) => {
-      toast.error(err.message || "Failed to update status");
-      return null;
-    });
-    if (updated) {
-      setContacts((prev) => prev.map((c) => (c._id === id ? updated : c)));
-      toast.success(`Marked as ${status}`);
-    }
-  };
-
-  const handleDelete = async (id) => {
-    if (!window.confirm("Delete this enquiry?")) return;
-
-    const deleted = await deleteContact(id).catch((err) => {
-      toast.error(err.message || "Failed to delete enquiry");
-      return false;
-    });
-    if (deleted) {
-      setContacts((prev) => prev.filter((c) => c._id !== id));
-      toast.success("Enquiry deleted");
-    }
-  };
+  const recent = contacts.slice(0, 5);
 
   return (
-    <div className="space-y-4">
-      <div className="grid gap-4 sm:grid-cols-3">
-        <Card>
-          <CardContent className="flex items-center gap-3 p-4">
-            <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-primary/10 text-primary">
-              <Inbox className="h-5 w-5" />
-            </span>
-            <div>
-              <p className="text-xs text-slate-500">Total enquiries</p>
-              <p className="text-xl font-bold">{stats.total}</p>
-            </div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="flex items-center gap-3 p-4">
-            <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-blue-100 text-blue-600">
-              <MessageCircle className="h-5 w-5" />
-            </span>
-            <div>
-              <p className="text-xs text-slate-500">New</p>
-              <p className="text-xl font-bold">{stats.new}</p>
-            </div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="flex items-center gap-3 p-4">
-            <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg bg-green-100 text-green-600">
-              <CheckCircle2 className="h-5 w-5" />
-            </span>
-            <div>
-              <p className="text-xs text-slate-500">Resolved</p>
-              <p className="text-xl font-bold">{stats.resolved}</p>
-            </div>
-          </CardContent>
-        </Card>
+    <div className="space-y-6">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <StatCard icon={Inbox} iconClass="bg-primary/10 text-primary" label="Total enquiries" value={stats.total} loading={loading} />
+        <StatCard icon={MessageCircle} iconClass="bg-blue-100 text-blue-600" label="New" value={stats.new} loading={loading} />
+        <StatCard icon={CheckCircle2} iconClass="bg-green-100 text-green-600" label="Resolved" value={stats.resolved} loading={loading} />
+        <StatCard icon={ShieldCheck} iconClass="bg-purple-100 text-purple-600" label="Admins" value={adminCount} loading={loading} />
       </div>
 
-      <div className="flex items-center justify-between">
-        <h2 className="text-xl font-semibold text-slate-900">Enquiries ({contacts.length})</h2>
-      </div>
-
-      {error && <p className="text-sm text-destructive">{error}</p>}
-
-      {loading ? (
-        <p className="text-sm text-slate-500">Loading…</p>
-      ) : contacts.length === 0 ? (
-        <p className="text-sm text-slate-500">No enquiries yet.</p>
-      ) : (
-        <div className="rounded-xl border bg-white">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Name</TableHead>
-                <TableHead>Contact</TableHead>
-                <TableHead>Service</TableHead>
-                <TableHead>Message</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Received</TableHead>
-                <TableHead />
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {contacts.map((c) => (
-                <TableRow key={c._id}>
-                  <TableCell className="font-medium">{c.name}</TableCell>
-                  <TableCell>
-                    <div>{c.email}</div>
-                    <div className="text-xs text-slate-500">{c.phone}</div>
-                  </TableCell>
-                  <TableCell>{c.service}</TableCell>
-                  <TableCell className="max-w-xs truncate" title={c.message}>
-                    {c.message}
-                  </TableCell>
-                  <TableCell>
-                    <Select value={c.status} onValueChange={(value) => handleStatusChange(c._id, value)}>
-                      <SelectTrigger className="h-8 w-32">
-                        <SelectValue>
-                          <Badge variant={STATUS_VARIANT[c.status]}>{c.status}</Badge>
-                        </SelectValue>
-                      </SelectTrigger>
-                      <SelectContent>
-                        {STATUS_OPTIONS.map((s) => (
-                          <SelectItem key={s} value={s}>
-                            {s}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </TableCell>
-                  <TableCell className="text-xs text-slate-500">
-                    {new Date(c.createdAt).toLocaleDateString()}
-                  </TableCell>
-                  <TableCell>
-                    <Button variant="ghost" size="icon" onClick={() => handleDelete(c._id)}>
-                      <Trash2 className="h-4 w-4 text-destructive" />
-                    </Button>
-                  </TableCell>
-                </TableRow>
+      <Card>
+        <CardHeader className="flex flex-row items-center justify-between space-y-0">
+          <CardTitle className="text-lg">Recent enquiries</CardTitle>
+          <Link
+            to="/admin/enquiries"
+            className="flex items-center gap-1 text-sm font-medium text-primary hover:underline"
+          >
+            View all <ArrowRight className="h-3.5 w-3.5" />
+          </Link>
+        </CardHeader>
+        <CardContent>
+          {loading ? (
+            <ul className="divide-y">
+              {Array.from({ length: 4 }).map((_, i) => (
+                <li key={i} className="flex items-center justify-between gap-4 py-3">
+                  <div className="min-w-0 flex-1 space-y-2">
+                    <Skeleton className="h-4 w-1/3" />
+                    <Skeleton className="h-3 w-1/2" />
+                  </div>
+                  <Skeleton className="h-5 w-16 shrink-0 rounded-md" />
+                </li>
               ))}
-            </TableBody>
-          </Table>
-        </div>
-      )}
+            </ul>
+          ) : recent.length === 0 ? (
+            <p className="text-sm text-slate-500">No enquiries yet.</p>
+          ) : (
+            <ul className="divide-y">
+              {recent.map((c) => (
+                <li key={c._id} className="flex items-center justify-between gap-4 py-3">
+                  <div className="min-w-0">
+                    <p className="truncate font-medium">{c.name}</p>
+                    <p className="truncate text-xs text-slate-500">
+                      {c.service} · {c.email}
+                    </p>
+                  </div>
+                  <Badge variant={STATUS_VARIANT[c.status]} className="shrink-0">
+                    {c.status}
+                  </Badge>
+                </li>
+              ))}
+            </ul>
+          )}
+        </CardContent>
+      </Card>
     </div>
+  );
+}
+
+function StatCard({ icon: Icon, iconClass, label, value, loading }) {
+  return (
+    <Card>
+      <CardContent className="flex items-center gap-3 p-4">
+        <span className={`grid h-10 w-10 shrink-0 place-items-center rounded-lg ${iconClass}`}>
+          <Icon className="h-5 w-5" />
+        </span>
+        <div className="min-w-0 flex-1">
+          <p className="text-xs text-slate-500">{label}</p>
+          {loading ? (
+            <Skeleton className="mt-1 h-6 w-10" />
+          ) : (
+            <p className="text-xl font-bold">{value}</p>
+          )}
+        </div>
+      </CardContent>
+    </Card>
   );
 }

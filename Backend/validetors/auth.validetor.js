@@ -52,3 +52,21 @@ export const validateLogin = [
 
   checkValidation,
 ];
+
+export const validateChangePassword = [
+  body("email")
+    .trim()
+    .notEmpty()
+    .withMessage("Email is required")
+    .isEmail()
+    .withMessage("Please provide a valid email")
+    .normalizeEmail(),
+
+  body("newPassword")
+    .notEmpty()
+    .withMessage("New password is required")
+    .isLength({ min: 6 })
+    .withMessage("New password must be at least 6 characters"),
+
+  checkValidation,
+];
