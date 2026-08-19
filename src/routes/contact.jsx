@@ -1,9 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import emailjs from "@emailjs/browser";
+import { toast } from "sonner";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { Reveal } from "@/components/site/Sections";
 import { ContactBanner, ContactExtras } from "@/components/site/PageBanners";
+import { createContact } from "@/lib/api";
 import {
   Select,
   SelectContent,
@@ -59,14 +61,6 @@ function ContactPage() {
 
   const [status, setStatus] = useState("idle");
 
-  useEffect(() => {
-    if (status !== "success") return;
-
-    const timer = setTimeout(() => setStatus("idle"), 60000);
-
-    return () => clearTimeout(timer);
-  }, [status]);
-
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -88,29 +82,43 @@ function ContactPage() {
 
     setStatus("sending");
 
-    try {
-      await emailjs.send(
+    const results = await Promise.allSettled([
+      emailjs.send(
         import.meta.env.VITE_EMAILJS_SERVICE_ID,
         import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
         formData,
         {
           publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
         }
-      );
+      ),
+      createContact({
+        name: formData.user_name,
+        phone: formData.phone,
+        email: formData.user_email,
+        service: formData.service,
+        message: formData.message,
+      }),
+    ]);
 
-      setStatus("success");
+    const failure = results.find((result) => result.status === "rejected");
 
-      setFormData({
-        user_name: "",
-        phone: "",
-        user_email: "",
-        service: "",
-        message: "",
-      });
-    } catch (error) {
-      console.error("EmailJS Error:", error);
+    if (failure) {
+      console.error("Contact submission error:", failure.reason);
       setStatus("error");
+      toast.error("Something went wrong. Please try again.");
+      return;
     }
+
+    setStatus("idle");
+    toast.success("Your enquiry has been sent successfully!");
+
+    setFormData({
+      user_name: "",
+      phone: "",
+      user_email: "",
+      service: "",
+      message: "",
+    });
   };
 
   return (
@@ -236,31 +244,13 @@ function ContactPage() {
                   className="rounded-xl border border-input bg-background px-4 py-3 text-sm outline-none transition-shadow focus:ring-2 focus:ring-primary/40 sm:col-span-2"
                 />
 
-                {/* Error */}
-                {status === "error" && (
-                  <div className="rounded-xl bg-red-50 p-3 text-sm text-red-600 sm:col-span-2">
-                    Something went wrong. Please try again.
-                  </div>
-                )}
-
-                {/* Success */}
-                {status === "success" && (
-                  <div className="rounded-xl bg-green-50 p-3 text-sm text-green-600 sm:col-span-2">
-                    Your enquiry has been sent successfully!
-                  </div>
-                )}
-
                 {/* Submit */}
                 <button
                   type="submit"
                   disabled={status === "sending"}
                   className="pulse-ring rounded-full bg-[linear-gradient(120deg,#29b6f6,#0277bd)] px-6 py-3 text-sm font-semibold text-primary-foreground transition-transform hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-70 sm:col-span-2"
                 >
-                  {status === "sending"
-                    ? "Sending..."
-                    : status === "success"
-                      ? "Enquiry Sent ✓"
-                      : "Send enquiry"}
+                  {status === "sending" ? "Sending..." : "Send enquiry"}
                 </button>
 
               </form>
