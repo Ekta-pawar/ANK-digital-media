@@ -1,8 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { Trash2 } from "lucide-react";
-import { getContacts, updateContactStatus, deleteContact } from "@/lib/api";
+import { getContacts, updateContactStatus } from "@/lib/api";
 import {
   Table,
   TableBody,
@@ -12,7 +11,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
   Select,
@@ -58,19 +56,6 @@ function EnquiriesPage() {
     }
   };
 
-  const handleDelete = async (id) => {
-    if (!window.confirm("Delete this enquiry?")) return;
-
-    const deleted = await deleteContact(id).catch((err) => {
-      toast.error(err.message || "Failed to delete enquiry");
-      return false;
-    });
-    if (deleted) {
-      setContacts((prev) => prev.filter((c) => c._id !== id));
-      toast.success("Enquiry deleted");
-    }
-  };
-
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
@@ -80,74 +65,115 @@ function EnquiriesPage() {
       {error && <p className="text-sm text-destructive">{error}</p>}
 
       {loading ? (
-        <div className="space-y-3 rounded-xl border bg-white p-4">
-          {Array.from({ length: 6 }).map((_, i) => (
-            <div key={i} className="flex items-center gap-4">
-              <Skeleton className="h-4 w-28" />
-              <Skeleton className="h-4 w-36" />
-              <Skeleton className="h-4 w-24" />
-              <Skeleton className="h-4 flex-1" />
-              <Skeleton className="h-8 w-24 rounded-md" />
-            </div>
-          ))}
-        </div>
+        <>
+          <div className="space-y-3 sm:hidden">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <div key={i} className="space-y-2 rounded-xl border bg-white p-4">
+                <Skeleton className="h-4 w-1/2" />
+                <Skeleton className="h-3 w-2/3" />
+                <Skeleton className="h-8 w-28 rounded-md" />
+              </div>
+            ))}
+          </div>
+          <div className="hidden space-y-3 rounded-xl border bg-white p-4 sm:block">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <div key={i} className="flex items-center gap-4">
+                <Skeleton className="h-4 w-28" />
+                <Skeleton className="h-4 w-36" />
+                <Skeleton className="h-4 w-24" />
+                <Skeleton className="h-4 flex-1" />
+                <Skeleton className="h-8 w-24 rounded-md" />
+              </div>
+            ))}
+          </div>
+        </>
       ) : contacts.length === 0 ? (
         <p className="text-sm text-slate-500">No enquiries yet.</p>
       ) : (
-        <div className="rounded-xl border bg-white">
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Name</TableHead>
-                <TableHead>Contact</TableHead>
-                <TableHead>Service</TableHead>
-                <TableHead>Message</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Received</TableHead>
-                <TableHead />
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {contacts.map((c) => (
-                <TableRow key={c._id}>
-                  <TableCell className="font-medium">{c.name}</TableCell>
-                  <TableCell>
-                    <div>{c.email}</div>
-                    <div className="text-xs text-slate-500">{c.phone}</div>
-                  </TableCell>
-                  <TableCell>{c.service}</TableCell>
-                  <TableCell className="max-w-xs truncate" title={c.message}>
-                    {c.message}
-                  </TableCell>
-                  <TableCell>
-                    <Select value={c.status} onValueChange={(value) => handleStatusChange(c._id, value)}>
-                      <SelectTrigger className="h-8 w-32">
-                        <SelectValue>
-                          <Badge variant={STATUS_VARIANT[c.status]}>{c.status}</Badge>
-                        </SelectValue>
-                      </SelectTrigger>
-                      <SelectContent>
-                        {STATUS_OPTIONS.map((s) => (
-                          <SelectItem key={s} value={s}>
-                            {s}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </TableCell>
-                  <TableCell className="text-xs text-slate-500">
+        <>
+          {/* Mobile: cards */}
+          <div className="space-y-3 sm:hidden">
+            {contacts.map((c) => (
+              <div key={c._id} className="space-y-3 rounded-xl border bg-white p-4">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="min-w-0">
+                    <p className="truncate font-medium">{c.name}</p>
+                    <p className="truncate text-xs text-slate-500">{c.service}</p>
+                  </div>
+                  <span className="shrink-0 text-xs text-slate-400">
                     {new Date(c.createdAt).toLocaleDateString()}
-                  </TableCell>
-                  <TableCell>
-                    <Button variant="ghost" size="icon" onClick={() => handleDelete(c._id)}>
-                      <Trash2 className="h-4 w-4 text-destructive" />
-                    </Button>
-                  </TableCell>
+                  </span>
+                </div>
+
+                <div className="text-sm text-slate-600">
+                  <div className="truncate">{c.email}</div>
+                  <div>{c.phone}</div>
+                </div>
+
+                <Select value={c.status} onValueChange={(value) => handleStatusChange(c._id, value)}>
+                  <SelectTrigger className="h-8 w-32">
+                    <SelectValue>
+                      <Badge variant={STATUS_VARIANT[c.status]}>{c.status}</Badge>
+                    </SelectValue>
+                  </SelectTrigger>
+                  <SelectContent>
+                    {STATUS_OPTIONS.map((s) => (
+                      <SelectItem key={s} value={s}>
+                        {s}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            ))}
+          </div>
+
+          {/* Desktop: table */}
+          <div className="hidden rounded-xl border bg-white sm:block">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Name</TableHead>
+                  <TableHead>Contact</TableHead>
+                  <TableHead>Service</TableHead>
+                  <TableHead>Status</TableHead>
+                  <TableHead>Received</TableHead>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
+              </TableHeader>
+              <TableBody>
+                {contacts.map((c) => (
+                  <TableRow key={c._id}>
+                    <TableCell className="font-medium">{c.name}</TableCell>
+                    <TableCell>
+                      <div>{c.email}</div>
+                      <div className="text-xs text-slate-500">{c.phone}</div>
+                    </TableCell>
+                    <TableCell>{c.service}</TableCell>
+                    <TableCell>
+                      <Select value={c.status} onValueChange={(value) => handleStatusChange(c._id, value)}>
+                        <SelectTrigger className="h-8 w-32">
+                          <SelectValue>
+                            <Badge variant={STATUS_VARIANT[c.status]}>{c.status}</Badge>
+                          </SelectValue>
+                        </SelectTrigger>
+                        <SelectContent>
+                          {STATUS_OPTIONS.map((s) => (
+                            <SelectItem key={s} value={s}>
+                              {s}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </TableCell>
+                    <TableCell className="text-xs text-slate-500">
+                      {new Date(c.createdAt).toLocaleDateString()}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+        </>
       )}
     </div>
   );

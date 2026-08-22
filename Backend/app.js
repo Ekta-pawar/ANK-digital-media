@@ -3,7 +3,6 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import authRoutes from "./routes/auth.routes.js";
 import contactRoutes from "./routes/Contact.route.js";
-import authRateLimiter from "./middleware/rateLimit.middleware.js";
 import { notFound, errorHandler } from "./middleware/error.middleware.js";
 
 const app = express();
@@ -35,7 +34,7 @@ app.get("/api/v1/health", (req, res) => {
   });
 });
 
-app.use("/api/v1/auth", authRateLimiter, authRoutes);
+app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/contacts", contactRoutes);
 
 app.use(notFound);

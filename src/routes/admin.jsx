@@ -89,7 +89,7 @@ function AdminShell() {
       <aside
         className={`fixed inset-y-0 left-0 z-40 flex w-64 flex-col bg-slate-950 text-slate-100 transition-transform lg:translate-x-0 ${menuOpen ? "translate-x-0" : "-translate-x-full"}`}
       >
-        <div className="flex h-16 items-center gap-3 border-b border-white/10 px-6">
+        <div className="flex h-20 items-center gap-3 border-b border-white/10 px-6">
           <img src={logo} alt="Ank Digital Media" className="h-9 w-9 shrink-0 rounded-md bg-white object-contain p-1" />
           <div className="min-w-0">
             <p className="truncate text-sm font-bold tracking-wide">Ank Digital Media</p>
